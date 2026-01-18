@@ -90,12 +90,11 @@
             </div>
             <nav class="nav" id="nav">
                 <a href="#home" class="nav-link active">Главная</a>
-                <a href="#constructor" class="nav-link">Конструктор</a>
+                <a href="#" class="nav-link" onclick="openModal('constructorModal'); return false;">Конструктор</a>
                 <a href="#" class="nav-link" onclick="openEnrollmentModal(); return false;">Журнал набора</a>
                 <a href="#packages" class="nav-link">Пакеты</a>
                 <a href="#testimonials" class="nav-link">Отзывы</a>
-                <a href="#about" class="nav-link">О нас</a>
-                <a href="#contact" class="nav-link">Контакты</a>
+                <a href="#" class="nav-link" onclick="logoutStaff(); return false;">Выход</a>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <span></span>
@@ -120,7 +119,8 @@
                         персонализированный подход — от формирования профиля до получения оффера.
                     </p>
                     <div class="hero-buttons">
-                        <a href="#constructor" class="btn btn-primary btn-large">
+                        <a href="#" onclick="openModal('constructorModal'); return false;"
+                            class="btn btn-primary btn-large">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M12 4V20M20 12H4" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" />
@@ -241,8 +241,6 @@
                     </div>
                 </div>
             </div>
-        </section>
-
         </section>
 
         <!-- Packages Section -->
@@ -622,7 +620,8 @@
                     <p class="cta-subtitle">Запишитесь на бесплатную консультацию и узнайте, как мы можем помочь вам
                         поступить в университет мечты</p>
                     <div class="cta-buttons">
-                        <a href="#constructor" class="btn btn-primary btn-large">Собрать пакет услуг</a>
+                        <a href="#" onclick="openModal('constructorModal'); return false;"
+                            class="btn btn-primary btn-large">Собрать пакет услуг</a>
                         <a href="#contact" class="btn btn-secondary btn-large">Связаться с нами</a>
                     </div>
                 </div>

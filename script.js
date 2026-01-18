@@ -177,6 +177,11 @@ function openModal(modalId) {
     if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+
+        // Ensure services are rendered when constructor opens
+        if (modalId === 'constructorModal') {
+            initConstructor();
+        }
     }
 }
 
@@ -186,6 +191,11 @@ function closeModal(modalId) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
     }
+}
+
+function logoutStaff() {
+    localStorage.removeItem('impact_staff_authorized');
+    window.location.reload();
 }
 
 // Close modal on overlay click
