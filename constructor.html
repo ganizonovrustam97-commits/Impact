@@ -1,0 +1,77 @@
+<!-- Constructor Modal Content -->
+<section class="constructor-section" id="constructor-content">
+    <div class="constructor-header">
+        <button class="constructor-close" onclick="closeModal('constructorModal')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </button>
+        <h2 class="constructor-title">Конструктор услуг</h2>
+        <p class="constructor-subtitle">Соберите индивидуальный пакет услуг под ваши цели и бюджет</p>
+    </div>
+
+    <div class="constructor-body">
+        <!-- University Count Selector -->
+        <div class="university-selector">
+            <h3 class="selector-title">Выберите количество университетов</h3>
+            <div class="selector-options">
+                <label class="selector-option">
+                    <input type="radio" name="university-count" value="15" checked onchange="updatePrices()">
+                    <span class="option-card">
+                        <span class="option-number">15</span>
+                        <span class="option-label">университетов</span>
+                        <span class="option-badge">Выгодно</span>
+                    </span>
+                </label>
+                <label class="selector-option">
+                    <input type="radio" name="university-count" value="10" onchange="updatePrices()">
+                    <span class="option-card">
+                        <span class="option-number">10</span>
+                        <span class="option-label">университетов</span>
+                    </span>
+                </label>
+                <label class="selector-option">
+                    <input type="radio" name="university-count" value="1" onchange="updatePrices()">
+                    <span class="option-card">
+                        <span class="option-number">1</span>
+                        <span class="option-label">университет</span>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="services-wrapper">
+            <div class="services-header-row">
+                <div class="col-name">Услуга</div>
+                <div class="col-price">Стоимость</div>
+                <div class="col-select">Выбрать</div>
+            </div>
+            <div class="services-grid" id="servicesGrid">
+                <!-- Services will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Summary -->
+    <div class="constructor-summary">
+        <div class="summary-container">
+            <div class="summary-left">
+                <div class="summary-info">
+                    <span class="summary-label">Выбрано услуг:</span>
+                    <span class="summary-count" id="selectedCount">0</span>
+                </div>
+                <button class="btn-reset" onclick="resetConstructor()">Сбросить</button>
+            </div>
+            <div class="summary-right">
+                <div class="summary-total">
+                    <span class="total-label">Итого:</span>
+                    <span class="total-price" id="totalPrice">0 UZS</span>
+                </div>
+                <button class="btn btn-primary btn-submit-order" onclick="submitOrder()">
+                    Оставить заявку
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

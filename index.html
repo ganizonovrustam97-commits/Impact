@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Admissions — Ваш путь в зарубежные университеты</title>
+    <meta name="description"
+        content="Персонализированное консультирование для поступления в лучшие университеты мира. Соберите индивидуальный пакет услуг или выберите готовое решение.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="staff-protected">
+    <!-- Staff Login Overlay -->
+    <div id="staffAuthOverlay" class="auth-overlay">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <svg width="60" height="60" viewBox="0 0 40 40" fill="none">
+                    <path d="M20 0L24.5 15.5L40 20L24.5 24.5L20 40L15.5 24.5L0 20L15.5 15.5L20 0Z"
+                        fill="url(#auth-gradient)" />
+                    <defs>
+                        <linearGradient id="auth-gradient" x1="0" y1="0" x2="40" y2="40">
+                            <stop offset="0%" stop-color="#667eea" />
+                            <stop offset="100%" stop-color="#764ba2" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h2>Impact Admissions</h2>
+            <p>Панель управления сотрудника</p>
+            <div class="auth-form">
+                <input type="password" id="staffPassword" placeholder="Введите пароль доступа"
+                    onkeypress="if(event.key === 'Enter') checkStaffAccess()">
+                <button onclick="checkStaffAccess()" class="btn btn-primary">Войти в систему</button>
+                <div id="authError" class="auth-error">Неверный пароль доступа</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Effects -->
+    <div class="background-gradient"></div>
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+
+        <!-- Floating Offers (Interactive) -->
+        <div class="floating-offer offer-left-1" onclick="openImageModal('assets/offers/offer-kings.jpg')"><img
+                src="assets/offers/offer-kings.jpg" alt="Offer"></div>
+        <div class="floating-offer offer-right-1" onclick="openImageModal('assets/offers/offer-minerva.jpg')"><img
+                src="assets/offers/offer-minerva.jpg" alt="Offer"></div>
+        <div class="floating-offer offer-left-2" onclick="openImageModal('assets/offers/offer-trinity.jpg')"><img
+                src="assets/offers/offer-trinity.jpg" alt="Offer"></div>
+        <div class="floating-offer offer-right-2" onclick="openImageModal('assets/offers/offer-nyu.jpg')"><img
+                src="assets/offers/offer-nyu.jpg" alt="Offer"></div>
+        <div class="floating-offer offer-left-3" onclick="openImageModal('assets/offers/offer-depauw.jpg')"><img
+                src="assets/offers/offer-depauw.jpg" alt="Offer"></div>
+        <div class="floating-offer offer-right-3" onclick="openImageModal('assets/offers/offer-toronto.jpg')"><img
+                src="assets/offers/offer-toronto.jpg" alt="Offer"></div>
+        <div class="floating-offer offer-left-4" onclick="openImageModal('assets/offers/offer-franklin.jpg')"><img
+                src="assets/offers/offer-franklin.jpg" alt="Offer"></div>
+        <div class="floating-offer offer-right-4" onclick="openImageModal('assets/offers/offer-rhodes.jpg')"><img
+                src="assets/offers/offer-rhodes.jpg" alt="Offer"></div>
+        <div class="floating-offer offer-left-5" onclick="openImageModal('assets/offers/offer-nyu-shanghai.jpg')"><img
+                src="assets/offers/offer-nyu-shanghai.jpg" alt="Offer"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M20 0L24.5 15.5L40 20L24.5 24.5L20 40L15.5 24.5L0 20L15.5 15.5L20 0Z"
+                            fill="url(#logo-gradient)" />
+                        <defs>
+                            <linearGradient id="logo-gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#667eea" />
+                                <stop offset="100%" stop-color="#764ba2" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">Impact Admissions</span>
+            </div>
+            <nav class="nav" id="nav">
+                <a href="#home" class="nav-link active">Главная</a>
+                <a href="#constructor" class="nav-link">Конструктор</a>
+                <a href="#" class="nav-link" onclick="openEnrollmentModal(); return false;">Журнал набора</a>
+                <a href="#packages" class="nav-link">Пакеты</a>
+                <a href="#testimonials" class="nav-link">Отзывы</a>
+                <a href="#about" class="nav-link">О нас</a>
+                <a href="#contact" class="nav-link">Контакты</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero-section" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Ваш путь в<br>
+                        <span class="gradient-text">Университеты мира</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        С 2021 года помогаем студентам поступать в ведущие университеты мира. Стратегический и
+                        персонализированный подход — от формирования профиля до получения оффера.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#constructor" class="btn btn-primary btn-large">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 4V20M20 12H4" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" />
+                            </svg>
+                            Собрать свой пакет
+                        </a>
+                        <a href="#packages" class="btn btn-secondary btn-large">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 12H15M12 9V15" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" />
+                                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor"
+                                    stroke-width="2" />
+                            </svg>
+                            Готовые пакеты
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">2,500+</div>
+                            <div class="stat-label">Успешных студентов</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">$16M+</div>
+                            <div class="stat-label">В грантах и стипендиях</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Студентов из Узбекистана</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Preview Section -->
+        <section class="section-about-preview">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Почему <span class="gradient-text">Impact Admissions</span></h2>
+                    <p class="section-subtitle">Мы делаем больше, чем просто консультируем</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title">Персонализированная стратегия</h3>
+                        <p class="feature-text">Каждый студент уникален. Мы создаем индивидуальную стратегию поступления
+                            — от формирования профиля до получения оффера от университета мечты.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏆</div>
+                        <h3 class="feature-title">Проверенные результаты</h3>
+                        <p class="feature-text">С 2021 года помогли 2,500+ студентам поступить в престижные университеты
+                            США, Великобритании, Европы и других стран. Наши студенты выиграли более $16 млн в грантах.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Комплексное сопровождение</h3>
+                        <p class="feature-text">Работаем исключительно с программами бакалавриата (Undergraduate).
+                            Полное сопровождение на каждом этапе поступления в лучшие вузы мира.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <h3 class="feature-title">Развитие в Ташкенте</h3>
+                        <p class="feature-text">С 2024 года активно развиваемся в Узбекистане. Уже помогли 100+
+                            школьникам из Ташкента поступить в престижные университеты мира.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="section-how-it-works">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Как мы <span class="gradient-text">работаем</span></h2>
+                    <p class="section-subtitle">Простой и понятный процесс от заявки до поступления</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-number">01</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Консультация</h3>
+                            <p class="timeline-text">Знакомимся, определяем ваши цели и составляем предварительный план
+                                действий.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">02</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Стратегия</h3>
+                            <p class="timeline-text">Разрабатываем персонализированную стратегию поступления и подбираем
+                                университеты.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">03</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Подготовка</h3>
+                            <p class="timeline-text">Помогаем с документами, эссе, рекомендациями и подготовкой к
+                                интервью.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">04</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Подача заявок</h3>
+                            <p class="timeline-text">Проверяем и отправляем все заявки, следим за дедлайнами и
+                                статусами.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">05</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Зачисление</h3>
+                            <p class="timeline-text">Помогаем с выбором предложения, визой и подготовкой к учебе.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </section>
+
+        <!-- Packages Section -->
+        <section class="section-packages" id="packages">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Готовые <span class="gradient-text">пакеты</span></h2>
+                    <p class="section-subtitle">Выберите оптимальный план для вашего поступления</p>
+                </div>
+
+                <div class="packages-grid">
+                    <!-- Standard Package -->
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3 class="package-title">СТАНДАРТ</h3>
+                        </div>
+
+                        <div class="package-body">
+                            <div class="package-block">
+                                <h4 class="block-title">УСЛУГИ</h4>
+                                <ul class="package-list">
+                                    <li>Подача до 10 вузов</li>
+                                    <li>Индивидуальный трекер</li>
+                                    <li>Ментор по стратегии</li>
+                                    <li>Ментор по письму</li>
+                                    <li>PREP СТАНДАРТ</li>
+                                    <li>Курс IELTS</li>
+                                </ul>
+                            </div>
+
+                            <div class="package-block">
+                                <h4 class="block-title">БОНУСЫ</h4>
+                                <ul class="package-list">
+                                    <li>Курс "Базовый"</li>
+                                    <li>Онлайн курс SAT</li>
+                                </ul>
+                            </div>
+
+                            <div class="package-block">
+                                <h4 class="block-title">ГАРАНТИИ</h4>
+                                <p class="guarantee-text">Гарантируем получения как минимум 1 приглашения с университета
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="package-footer">
+                            <div class="price-container">
+                                <span class="old-price">$4 400</span>
+                                <span class="new-price">$2 640</span>
+                            </div>
+                            <div class="package-actions">
+                                <a href="#"
+                                    onclick="openDocumentModal('contract/Стандарт Евразия-10.docx'); return false;"
+                                    class="btn btn-secondary btn-full">Смотреть договор</a>
+                                <a href="#" onclick="openDocumentModal('contract/Анкета.docx'); return false;"
+                                    class="btn-text-link">Смотреть анкету</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Full Support Package -->
+                    <div class="package-card">
+                        <div class="package-header white-header">
+                            <h3 class="package-title dark-text">ПОЛНОЕ СОПРОВОЖДЕНИЕ</h3>
+                        </div>
+
+                        <div class="package-body">
+                            <div class="package-block">
+                                <h4 class="block-title">УСЛУГИ</h4>
+                                <ul class="package-list">
+                                    <li>До 20 заявок в университеты</li>
+                                    <li>Индивидуальный трекер</li>
+                                    <li>Ментор по стратегии</li>
+                                    <li>Ментор по письму</li>
+                                    <li>Закрытые встречи со спикерами</li>
+                                    <li>Выпускниками Ivy League</li>
+                                </ul>
+                            </div>
+
+                            <div class="package-block">
+                                <h4 class="block-title">БОНУСЫ</h4>
+                                <ul class="package-list">
+                                    <li>Профориентация</li>
+                                    <li>PREP СТАНДАРТ</li>
+                                    <li>Курс "Базовый"</li>
+                                    <li>Курс SAT/IELTS</li>
+                                </ul>
+                            </div>
+
+                            <div class="package-block">
+                                <h4 class="block-title">ГАРАНТИИ</h4>
+                                <p class="guarantee-text">Вернём 100% если не поступите и бесплатно подадимся в 20
+                                    университетов</p>
+                            </div>
+                        </div>
+
+                        <div class="package-footer">
+                            <div class="price-container">
+                                <span class="old-price">$7 150</span>
+                                <span class="new-price">$5 500</span>
+                            </div>
+                            <div class="package-actions">
+                                <a href="#" onclick="openDocumentModal('contract/ПС ПКХ 20.docx'); return false;"
+                                    class="btn btn-primary btn-full">Смотреть договор</a>
+                                <a href="#" onclick="openDocumentModal('contract/Анкета.docx'); return false;"
+                                    class="btn-text-link">Смотреть анкету</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Premium Package -->
+                    <div class="package-card premium-card">
+                        <div class="package-header gold-header">
+                            <h3 class="package-title dark-text">PREMIUM</h3>
+                        </div>
+
+                        <div class="package-body">
+                            <div class="package-block gold-border">
+                                <h4 class="block-title">УСЛУГИ</h4>
+                                <ul class="package-list">
+                                    <li>До 30 заявок в университеты</li>
+                                    <li>Индивидуальный трекер</li>
+                                    <li>Ментор по стратегии из ТОП 100 ВУЗ-а</li>
+                                    <li>Ментор по письму из ТОП 100 ВУЗ-а</li>
+                                    <li>Закрытые встречи со спикерами</li>
+                                    <li>Выпускниками Ivy League</li>
+                                </ul>
+                            </div>
+
+                            <div class="package-block gold-border">
+                                <h4 class="block-title">БОНУСЫ</h4>
+                                <ul class="package-list">
+                                    <li>Профориентация</li>
+                                    <li>PREP PRO</li>
+                                    <li>Курс "Базовый"</li>
+                                    <li>Курс SAT</li>
+                                    <li>Курс IELTS</li>
+                                </ul>
+                            </div>
+
+                            <div class="package-block gold-border">
+                                <h4 class="block-title">ГАРАНТИИ</h4>
+                                <p class="guarantee-text">Гарантируем что получите скидку, которая покроет стоимость
+                                    работы с нами или вернем 100% от суммы контракта</p>
+                            </div>
+                        </div>
+
+                        <div class="package-footer">
+                            <div class="price-container">
+                                <span class="old-price">$10 890</span>
+                                <span class="new-price">$7 920</span>
+                            </div>
+                            <div class="package-actions">
+                                <a href="#" onclick="openDocumentModal('contract/Премиум ПКХ 30.docx'); return false;"
+                                    class="btn btn-gold btn-full">Смотреть
+                                    договор</a>
+                                <a href="#" onclick="openDocumentModal('contract/Анкета.docx'); return false;"
+                                    class="btn-text-link">Смотреть анкету</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Preview -->
+        <section class="section-testimonials-preview" id="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Истории <span class="gradient-text">успеха</span></h2>
+                    <p class="section-subtitle">Наши студенты поступают в лучшие университеты мира</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">
+                                <img src="assets/testimonials/ibrohim.jpg" alt="Усмонов Иброхим">
+                            </div>
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">Усмонов Иброхим</div>
+                                <div class="testimonial-uni">University of Birmingham Dubai</div>
+                                <div class="testimonial-program">Finance and Accounting</div>
+                                <div class="testimonial-package">Пакет: <span class="package-badge-full">Полное
+                                        сопровождение</span></div>
+                            </div>
+                        </div>
+                        <div class="testimonial-text">
+                            "Мне удалось поступить в University of Birmingham Dubai. Благодаря знаниям от Impact
+                            Admissions я смог самостоятельно выбрать вуз и подать документы. Результат оправдал ожидания
+                            — особенно впечатлила статистика по грантам, которая и привлекла меня изначально."
+                        </div>
+                        <div class="testimonial-rating">
+                            ★★★★★
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">
+                                <img src="assets/testimonials/dilnoza.jpg" alt="Дилноза Курбанова">
+                            </div>
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">Дилноза Курбанова</div>
+                                <div class="testimonial-uni">Drexel, Adelphi, Hofstra (USA)</div>
+                                <div class="testimonial-program" style="color: var(--color-success); font-weight: 700;">
+                                    $540 000 в ГРАНТАХ</div>
+                                <div class="testimonial-package">Пакет: <span
+                                        class="package-badge-premium">Премиум</span></div>
+                            </div>
+                        </div>
+                        <div class="testimonial-text">
+                            "Научилась правильно преподносить свою историю. Мы стратегически развили портфолио, отточили
+                            эссе и подготовились к интервью. Итог — поступление без SAT и полмиллиона долларов
+                            финансирования."
+                        </div>
+                        <div class="testimonial-rating">
+                            ★★★★★
+                        </div>
+                        <div class="review-proof" onclick="openImageModal('assets/testimonials/dilnoza-proof.jpg')">
+                            <img src="assets/testimonials/dilnoza-proof.jpg" alt="Скриншот отзыва Дилнозы">
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">
+                                <img src="assets/testimonials/samina.jpg" alt="Самина Аюпова">
+                            </div>
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">Самина Аюпова</div>
+                                <div class="testimonial-uni">Yonsei, Korea Univ, SNU (Top 50)</div>
+                                <div class="testimonial-program">South Korea Admission</div>
+                                <div class="testimonial-package">Пакет: <span
+                                        class="package-badge-standard">Стандарт</span></div>
+                            </div>
+                        </div>
+                        <div class="testimonial-text">
+                            "Результаты превзошли все ожидания! Поступила в Yonsei (топ-52), Korea University (топ-68),
+                            Seoul National University (топ-32) и еще 5 ведущих вузов Кореи. Мечта учиться в топовом
+                            университете Азии сбылась!"
+                        </div>
+                        <div class="testimonial-rating">
+                            ★★★★★
+                        </div>
+                        <div class="review-proof" onclick="openImageModal('assets/testimonials/samina-proof.jpg')">
+                            <img src="assets/testimonials/samina-proof.jpg" alt="Скриншот отзыва Самины">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Album Section -->
+            <div class="video-album">
+                <div class="section-header">
+                    <h3 class="album-title">Видео-отзывы</h3>
+                    <p class="album-subtitle">Истории успеха наших студентов от первого лица</p>
+                </div>
+                <div class="video-grid">
+                    <!-- Video Item 1 -->
+                    <div class="video-item"
+                        onclick="openVideoModal('video/AQMsugARJXXoIOE2FjIAi9FoU7tmPEdhLt7YFTISE8ZM2AHZNm8tZs4qU6_c_md.mp4')">
+                        <div class="video-thumbnail">
+                            <img src="assets/video-cover.jpg" alt="Impact Admissions"
+                                style="opacity: 0.5; filter: grayscale(100%) brightness(0.5);">
+                            <div class="play-overlay">
+                                <svg width="60" height="60" viewBox="0 0 64 64">
+                                    <circle cx="32" cy="32" r="30" fill="none" stroke="white" stroke-width="2" />
+                                    <path d="M25 20v24l20-12z" fill="white" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h4 class="video-caption">История успеха 1</h4>
+                            <span class="video-category">Bachelor's Admission</span>
+                        </div>
+                    </div>
+
+                    <!-- Video Item 2 (Daniyar) -->
+                    <div class="video-item" onclick="openVideoModal('video/отзыв Данияр.mp4')">
+                        <div class="video-thumbnail">
+                            <img src="assets/video-cover.jpg" alt="Отзыв Данияр"
+                                style="opacity: 0.5; filter: grayscale(100%) brightness(0.5);">
+                            <div class="play-overlay">
+                                <svg width="60" height="60" viewBox="0 0 64 64">
+                                    <circle cx="32" cy="32" r="30" fill="none" stroke="white" stroke-width="2" />
+                                    <path d="M25 20v24l20-12z" fill="white" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h4 class="video-caption">История успеха: Данияр</h4>
+                            <span class="video-category">Bachelor's Admission</span>
+                        </div>
+                    </div>
+
+                    <!-- Video Item 3 (New) -->
+                    <div class="video-item" onclick="openVideoModal('video/FILE 2026-01-19 00:09:22.mp4')">
+                        <div class="video-thumbnail">
+                            <img src="assets/video-cover.jpg" alt="Impact Admission Testimonial"
+                                style="opacity: 0.5; filter: grayscale(100%) brightness(0.5);">
+                            <div class="play-overlay">
+                                <svg width="60" height="60" viewBox="0 0 64 64">
+                                    <circle cx="32" cy="32" r="30" fill="none" stroke="white" stroke-width="2" />
+                                    <path d="M25 20v24l20-12z" fill="white" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h4 class="video-caption">История успеха 3</h4>
+                            <span class="video-category">Bachelor's Admission</span>
+                        </div>
+                    </div>
+
+                    <!-- Video Item 4 (Placeholder) -->
+                    <div class="video-item placeholder-video">
+                        <div class="video-thumbnail">
+                            <div class="placeholder-bg"></div>
+                            <div class="play-overlay">
+                                <svg width="60" height="60" viewBox="0 0 64 64">
+                                    <circle cx="32" cy="32" r="30" fill="none" stroke="white" stroke-width="1"
+                                        opacity="0.3" />
+                                    <path d="M25 20v24l20-12z" fill="white" opacity="0.3" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h4 class="video-caption">Скоро здесь появится новое видео</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offers Slider Section -->
+                <div class="offers-slider-container">
+                    <div class="section-header">
+                        <h3 class="album-title">Галерея офферов</h3>
+                        <p class="album-subtitle">Нажмите на оффер, чтобы рассмотреть его детально</p>
+                    </div>
+                    <div class="offers-slider">
+                        <div class="offer-slide" onclick="openImageModal('assets/offers/offer-kings.jpg')">
+                            <img src="assets/offers/offer-kings.jpg" alt="King's College London">
+                        </div>
+                        <div class="offer-slide" onclick="openImageModal('assets/offers/offer-minerva.jpg')">
+                            <img src="assets/offers/offer-minerva.jpg" alt="Minerva University">
+                        </div>
+                        <div class="offer-slide" onclick="openImageModal('assets/offers/offer-trinity.jpg')">
+                            <img src="assets/offers/offer-trinity.jpg" alt="Trinity College">
+                        </div>
+                        <div class="offer-slide" onclick="openImageModal('assets/offers/offer-nyu.jpg')">
+                            <img src="assets/offers/offer-nyu.jpg" alt="NYU">
+                        </div>
+                        <div class="offer-slide" onclick="openImageModal('assets/offers/offer-franklin.jpg')">
+                            <img src="assets/offers/offer-franklin.jpg" alt="Franklin & Marshall">
+                        </div>
+                        <div class="offer-slide" onclick="openImageModal('assets/offers/offer-toronto.jpg')">
+                            <img src="assets/offers/offer-toronto.jpg" alt="University of Toronto">
+                        </div>
+                        <div class="offer-slide" onclick="openImageModal('assets/offers/offer-nyu-shanghai.jpg')">
+                            <img src="assets/offers/offer-nyu-shanghai.jpg" alt="NYU Shanghai">
+                        </div>
+                        <div class="offer-slide" onclick="openImageModal('assets/offers/offer-rhodes.jpg')">
+                            <img src="assets/offers/offer-rhodes.jpg" alt="Rhodes College">
+                        </div>
+                        <div class="offer-slide" onclick="openImageModal('assets/offers/offer-depauw.jpg')">
+                            <img src="assets/offers/offer-depauw.jpg" alt="DePauw University">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+
+        <!-- CTA Section -->
+        <section class="section-cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">Готовы начать свой путь?</h2>
+                    <p class="cta-subtitle">Запишитесь на бесплатную консультацию и узнайте, как мы можем помочь вам
+                        поступить в университет мечты</p>
+                    <div class="cta-buttons">
+                        <a href="#constructor" class="btn btn-primary btn-large">Собрать пакет услуг</a>
+                        <a href="#contact" class="btn btn-secondary btn-large">Связаться с нами</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <path d="M20 0L24.5 15.5L40 20L24.5 24.5L20 40L15.5 24.5L0 20L15.5 15.5L20 0Z"
+                                    fill="url(#logo-gradient-footer)" />
+                                <defs>
+                                    <linearGradient id="logo-gradient-footer" x1="0" y1="0" x2="40" y2="40">
+                                        <stop offset="0%" stop-color="#667eea" />
+                                        <stop offset="100%" stop-color="#764ba2" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <span class="logo-text">Impact Admissions</span>
+                    </div>
+                    <p class="footer-description">Международная образовательная консалтинговая компания. Раскрываем
+                        потенциал каждого студента с 2021 года.</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Навигация</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#constructor">Конструктор</a></li>
+                        <li><a href="#packages">Пакеты</a></li>
+                        <li><a href="#testimonials">Отзывы</a></li>
+                        <li><a href="#about">О нас</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Контакты</h4>
+                    <ul class="footer-contacts">
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path
+                                    d="M2.5 6.66667L10 11.6667L17.5 6.66667M3.33333 15H16.6667C17.5833 15 18.3333 14.25 18.3333 13.3333V6.66667C18.3333 5.75 17.5833 5 16.6667 5H3.33333C2.41667 5 1.66667 5.75 1.66667 6.66667V13.3333C1.66667 14.25 2.41667 15 3.33333 15Z"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            social@impact-admissions.uz
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path
+                                    d="M18.3333 14.1V16.6C18.3333 17.1417 17.8917 17.5833 17.35 17.5833C9.56667 17.0833 2.91667 10.4333 2.41667 2.65C2.41667 2.10833 2.85833 1.66667 3.4 1.66667H5.9C6.44167 1.66667 6.88333 2.10833 6.88333 2.65C6.88333 3.73333 7.05 4.81667 7.38333 5.81667C7.55 6.275 7.38333 6.8 6.94167 7.075L5.4 8.13333C6.71667 11.2667 8.73333 13.2833 11.8667 14.6L12.925 13.0583C13.2 12.6167 13.725 12.45 14.1833 12.6167C15.1833 12.95 16.2667 13.1167 17.35 13.1167C17.8917 13.1167 18.3333 13.5583 18.3333 14.1Z"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            +998 92 001 20 52
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path
+                                    d="M10 10.8333C11.3807 10.8333 12.5 9.71405 12.5 8.33333C12.5 6.95262 11.3807 5.83333 10 5.83333C8.61929 5.83333 7.5 6.95262 7.5 8.33333C7.5 9.71405 8.61929 10.8333 10 10.8333Z"
+                                    stroke="currentColor" stroke-width="1.5" />
+                                <path
+                                    d="M10 18.3333C13.3333 15 16.6667 12.0152 16.6667 8.33333C16.6667 4.65143 13.6819 1.66667 10 1.66667C6.31811 1.66667 3.33334 4.65143 3.33334 8.33333C3.33334 12.0152 6.66667 15 10 18.3333Z"
+                                    stroke="currentColor" stroke-width="1.5" />
+                            </svg>
+                            Ташкент, Узбекистан
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Подписка</h4>
+                    <p class="footer-newsletter-text">Получайте советы по поступлению и новости</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" placeholder="Ваш email" class="newsletter-input" required>
+                        <button type="submit" class="newsletter-btn">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M17.5 10H2.5M17.5 10L12.5 5M17.5 10L12.5 15" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Impact Admissions. Все права защищены.</p>
+                <div class="footer-legal">
+                    <a href="#privacy">Политика конфиденциальности</a>
+                    <a href="#terms">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Constructor Modal (will be loaded separately) -->
+    <div class="modal" id="constructorModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <!-- Constructor Modal Content -->
+            <section class="constructor-section" id="constructor-content">
+                <div class="constructor-header">
+                    <button class="constructor-close" onclick="closeModal('constructorModal')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                    </button>
+                    <h2 class="constructor-title">Конструктор услуг</h2>
+                    <p class="constructor-subtitle">Соберите индивидуальный пакет услуг под ваши цели и бюджет</p>
+                </div>
+
+                <div class="constructor-body">
+                    <div class="university-selector">
+                        <div class="selector-header">
+                            <h3 class="selector-title">Количество университетов</h3>
+                            <p class="selector-note">Меньше 5 университетов не берем, так как несем ответственность за
+                                результат</p>
+                        </div>
+                        <div class="counter-container">
+                            <button class="counter-btn" onclick="adjustUniversityCount(-1)">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M5 12H19" />
+                                </svg>
+                            </button>
+                            <div class="counter-value">
+                                <span id="uniCountDisplay">15</span>
+                                <span class="counter-label">вузов</span>
+                            </div>
+                            <button class="counter-btn" onclick="adjustUniversityCount(1)">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M12 5V19M5 12H19" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Services Grid -->
+                    <div class="services-wrapper">
+                        <div class="services-header-row">
+                            <div class="col-name">Услуга</div>
+                            <div class="col-price">Стоимость</div>
+                            <div class="col-select">Выбрать</div>
+                        </div>
+                        <div class="services-grid" id="servicesGrid">
+                            <!-- Services will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sticky Summary -->
+                <div class="constructor-summary">
+                    <div class="summary-container">
+                        <div class="summary-left">
+                            <div class="summary-info">
+                                <span class="summary-label">Выбрано услуг:</span>
+                                <span class="summary-count" id="selectedCount">0</span>
+                            </div>
+                            <button class="btn-reset" onclick="resetConstructor()">Сбросить</button>
+                        </div>
+                        <div class="summary-right">
+                            <div class="summary-total">
+                                <span class="total-label">Итого:</span>
+                                <span class="total-price" id="totalPrice">0 UZS</span>
+                            </div>
+                            <button class="btn btn-primary btn-submit-order" onclick="submitOrder()">
+                                Оставить заявку
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Video Testimonial Modal -->
+    <div class="modal" id="videoModal">
+        <div class="modal-overlay" onclick="closeVideoModal()"></div>
+        <div class="modal-content video-content">
+            <button class="document-close video-close" onclick="closeVideoModal()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+            <div class="video-container" id="videoPlayerContainer">
+                <!-- Video will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Enrollment Modal -->
+    <div id="enrollmentModal" class="image-modal">
+        <div class="modal-content enrollment-modal-content">
+            <button class="modal-close" onclick="closeEnrollmentModal()">&times;</button>
+            <div class="modal-inner">
+                <div class="section-header" style="margin-bottom: 2rem;">
+                    <h2 class="section-title">Журнал <span class="gradient-text">набора</span></h2>
+                    <p class="section-subtitle">Официальный реестр зачисления и бронирования мест</p>
+                </div>
+
+                <div class="booking-simple-offer" style="background: rgba(0,0,0,0.02)">
+                    <p><strong>Условия бронирования:</strong> Предоплата <strong>1 200 000 сум</strong> закрепляет за
+                        вами место. Решение принимается в течение <strong>3 рабочих дней</strong> (выходные и праздники
+                        не учитываются).</p>
+                </div>
+
+                <div class="table-responsive excel-style">
+                    <table id="enrollmentTable">
+                        <thead>
+                            <tr>
+                                <th width="5%">№</th>
+                                <th width="40%">Ф.И.О. Студента</th>
+                                <th width="20%">Статус</th>
+                                <th width="15%">Дата</th>
+                                <th width="20%">Программа</th>
+                            </tr>
+                        </thead>
+                        <tbody id="enrollmentBody">
+                            <!-- Dynamic rows -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 2rem; text-align: right;">
+                    <button class="btn btn-primary" onclick="closeEnrollmentModal()">Закрыть журнал</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Document Viewer Libraries -->
+    <script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+    <script src="https://unpkg.com/docx-preview/dist/docx-preview.min.js"></script>
+
+    <!-- Document Viewer Modal -->
+    <div class="modal" id="documentModal">
+        <div class="modal-overlay" id="documentOverlay"></div>
+        <div class="modal-content document-content">
+            <div class="document-header">
+                <h3 class="document-title" id="docTitle">Просмотр документа</h3>
+                <button class="document-close" onclick="closeModal('documentModal')">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="document-body" id="documentContainer">
+                <!-- Document will be rendered here -->
+                <div class="doc-loading">Загрузка документа...</div>
+            </div>
+            <div class="document-footer">
+                <a href="#" id="docDownloadBtn" class="btn btn-primary" download>Скачать оригинал</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="image-modal" id="imageModal" onclick="closeImageModal()">
+        <img src="" alt="Full size review" id="modalImage">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
