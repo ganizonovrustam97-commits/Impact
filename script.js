@@ -896,8 +896,40 @@ function populateDiagTables() {
 }
 
 function exportDiag() {
-    // Basic approach: window.print() + CSS @media print
-    window.print();
+    const element = document.querySelector('.diagnostic-container');
+    const studentName = document.querySelector('.diag-field input[type="text"]').value || 'Student';
+
+    // Hide buttons for export
+    const footer = document.querySelector('.diag-footer');
+    const closeBtn = document.querySelector('.diag-close');
+    footer.style.display = 'none';
+    closeBtn.style.display = 'none';
+
+    const opt = {
+        margin: [10, 10],
+        filename: `Impact_Diagnostic_${studentName}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            letterRendering: true
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    // New Promise-based usage:
+    html2pdf().set(opt).from(element).save().then(() => {
+        // Restore buttons
+        footer.style.display = 'flex';
+        closeBtn.style.display = 'block';
+    }).catch(err => {
+        console.error('PDF Export Error:', err);
+        footer.style.display = 'flex';
+        closeBtn.style.display = 'block';
+        alert('Ошибка при создании PDF. Попробуйте использовать обычную печать (Cmd+P).');
+    });
 }
 
 // Ensure Diagnostic Tool is initialized if opened
