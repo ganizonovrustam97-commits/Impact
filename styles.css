@@ -2610,3 +2610,306 @@ body.authorized footer {
         grid-area: checkbox;
     }
 }
+
+/* ============================================
+   DIAGNOSTIC MODAL STYLES
+   ============================================ */
+
+.diagnostic-content {
+    background: #f8fafc !important;
+    color: #1e293b !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+}
+
+.diagnostic-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.diagnostic-header {
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.diag-title {
+    color: #0f172a;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+.diag-subtitle {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.diag-close {
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.diag-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+.diag-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.diag-alert {
+    background: #fef2f2;
+    border-left: 4px solid #ef4444;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+}
+
+.diag-alert strong {
+    display: block;
+    color: #991b1b;
+}
+
+.diag-alert small {
+    color: #b91c1c;
+    opacity: 0.8;
+}
+
+.diag-form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.diag-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.diag-field.full-width {
+    grid-column: span 3;
+}
+
+.diag-field label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.diag-field input,
+.diag-field textarea,
+.diag-field select {
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.input-with-select {
+    display: flex;
+}
+
+.input-with-select input {
+    flex: 1;
+    border-radius: 6px 0 0 6px;
+}
+
+.input-with-select select {
+    width: 80px;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    background: #f1f5f9;
+}
+
+.diag-achievements {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+}
+
+/* Competencies Section */
+.section-divider {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.competencies-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.comp-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.comp-header {
+    background: #f1f5f9;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.comp-header h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.comp-levels {
+    display: flex;
+    flex-direction: column;
+}
+
+.level {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #f1f5f9;
+    transition: all 0.2s;
+    opacity: 0.5;
+}
+
+.level.active {
+    opacity: 1 !important;
+    font-weight: 700;
+    box-shadow: inset 0 0 0 2px #3b82f6;
+}
+
+.lv-6 {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.lv-5 {
+    background: #fff7ed;
+    color: #9a3412;
+}
+
+.lv-4 {
+    background: #fffbeb;
+    color: #92400e;
+}
+
+.lv-3 {
+    background: #f0fdf4;
+    color: #166534;
+}
+
+.lv-2 {
+    background: #f0fdfa;
+    color: #115e59;
+}
+
+.lv-1 {
+    background: #ecfdf5;
+    color: #065f46;
+}
+
+/* Chart Area */
+.diag-chart-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.diag-recap textarea {
+    width: 100%;
+    min-height: 120px;
+}
+
+/* Instruments Grid */
+.instruments-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.inst-col h5 {
+    color: #1e293b;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: 0.5rem;
+}
+
+.inst-item {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    background: #fff;
+    user-select: none;
+}
+
+.inst-item:hover {
+    background: #f1f5f9;
+}
+
+.inst-item.priority {
+    border: 1px dashed #ef4444;
+    color: #ef4444;
+}
+
+.inst-item.checked {
+    background: #3b82f6 !important;
+    color: #fff !important;
+    border-color: #3b82f6 !important;
+}
+
+.diag-footer {
+    padding: 1.5rem 2rem;
+    background: #fff;
+    border-top: 1px solid #e2e8f0;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+@media (max-width: 1000px) {
+
+    .diag-form-grid,
+    .competencies-grid,
+    .instruments-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .diag-field.full-width {
+        grid-column: span 1;
+    }
+
+    .diag-achievements {
+        grid-template-columns: 1fr;
+    }
+}

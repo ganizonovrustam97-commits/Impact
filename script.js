@@ -182,6 +182,11 @@ function openModal(modalId) {
         if (modalId === 'constructorModal') {
             initConstructor();
         }
+
+        // Ensure diagnostic chart is drawn
+        if (modalId === 'diagnosticModal') {
+            updateDiagChart();
+        }
     }
 }
 
@@ -772,6 +777,92 @@ function initAOS() {
 
     document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 }
+
+// ============================================
+// DIAGNOSTIC TOOL LOGIC
+// ============================================
+
+function updateDiagChart() {
+    const selects = document.querySelectorAll('.diag-rating-select');
+    const values = [];
+
+    selects.forEach(select => {
+        const rating = parseInt(select.value);
+        values.push(rating);
+        const card = select.closest('.comp-card');
+        if (card) {
+            const levels = card.querySelectorAll('.level');
+            levels.forEach(lv => lv.classList.remove('active'));
+            const targetLevel = card.querySelector(`.lv-${7 - rating}`);
+            if (targetLevel) targetLevel.classList.add('active');
+        }
+    });
+
+    drawRadarChart(values);
+}
+
+function drawRadarChart(values) {
+    const container = document.querySelector('.diag-chart-container');
+    if (!container) return;
+
+    const size = 300;
+    const center = size / 2;
+    const radius = size * 0.4;
+    const labels = ['Acad', 'Extra', 'Intel', 'Essay', 'Recs', 'EQ'];
+
+    let axesHtml = '';
+    let circlesHtml = '';
+
+    // Draw 6 radial circles (levels 1-6)
+    for (let i = 1; i <= 6; i++) {
+        const r = (radius / 6) * i;
+        circlesHtml += `<circle cx="${center}" cy="${center}" r="${r}" fill="none" stroke="#e2e8f0" stroke-width="1" />`;
+    }
+
+    // Draw axes and calculate points
+    const points = [];
+    for (let i = 0; i < 6; i++) {
+        const angle = (Math.PI * 2 / 6) * i - Math.PI / 2;
+        const x = center + radius * Math.cos(angle);
+        const y = center + radius * Math.sin(angle);
+        axesHtml += `<line x1="${center}" y1="${center}" x2="${x}" y2="${y}" stroke="#e2e8f0" stroke-width="1" />`;
+
+        // Value point (rating 6 is max, maps to radius)
+        const valR = (radius / 6) * values[i];
+        const valX = center + valR * Math.cos(angle);
+        const valY = center + valR * Math.sin(angle);
+        points.push(`${valX},${valY}`);
+
+        // Label
+        const labelX = center + (radius + 20) * Math.cos(angle);
+        const labelY = center + (radius + 20) * Math.sin(angle);
+        axesHtml += `<text x="${labelX}" y="${labelY}" text-anchor="middle" font-size="10" fill="#64748b" dominant-baseline="middle">${labels[i]}</text>`;
+    }
+
+    const polygonHtml = `<polygon points="${points.join(' ')}" fill="rgba(59, 130, 246, 0.2)" stroke="#3b82f6" stroke-width="2" />`;
+
+    container.innerHTML = `
+        <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+            ${circlesHtml}
+            ${axesHtml}
+            ${polygonHtml}
+        </svg>
+    `;
+}
+
+function toggleInst(el) {
+    el.classList.toggle('checked');
+}
+
+function exportDiag() {
+    alert('Экспорт в PDF... Функция находится в разработке.');
+}
+
+// Ensure Diagnostic Tool is initialized if opened
+document.addEventListener('DOMContentLoaded', () => {
+    // Other initializations...
+    updateDiagChart();
+});
 
 // Call on load
 document.addEventListener('DOMContentLoaded', () => {

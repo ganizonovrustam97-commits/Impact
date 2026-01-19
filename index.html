@@ -91,9 +91,9 @@
             <nav class="nav" id="nav">
                 <a href="#home" class="nav-link active">Главная</a>
                 <a href="#" class="nav-link" onclick="openModal('constructorModal'); return false;">Конструктор</a>
+                <a href="#" class="nav-link" onclick="openModal('diagnosticModal'); return false;">Диагностика</a>
                 <a href="#" class="nav-link" onclick="openEnrollmentModal(); return false;">Журнал набора</a>
                 <a href="#packages" class="nav-link">Пакеты</a>
-                <a href="#testimonials" class="nav-link">Отзывы</a>
                 <a href="#" class="nav-link" onclick="logoutStaff(); return false;">Выход</a>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -656,10 +656,10 @@
                     <h4 class="footer-title">Навигация</h4>
                     <ul class="footer-links">
                         <li><a href="#home">Главная</a></li>
-                        <li><a href="#constructor">Конструктор</a></li>
+                        <li><a href="#" onclick="openModal('constructorModal'); return false;">Конструктор</a></li>
+                        <li><a href="#" onclick="openModal('diagnosticModal'); return false;">Диагностика</a></li>
                         <li><a href="#packages">Пакеты</a></li>
                         <li><a href="#testimonials">Отзывы</a></li>
-                        <li><a href="#about">О нас</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -885,6 +885,281 @@
 
     <div class="image-modal" id="imageModal" onclick="closeImageModal()">
         <img src="" alt="Full size review" id="modalImage">
+    </div>
+
+    <!-- Diagnostic Modal -->
+    <div class="modal" id="diagnosticModal">
+        <div class="modal-overlay" onclick="closeModal('diagnosticModal')"></div>
+        <div class="modal-content diagnostic-content">
+            <div class="diagnostic-container">
+                <header class="diagnostic-header">
+                    <div class="diag-header-left">
+                        <h2 class="diag-title">Платная диагностика Impact</h2>
+                        <p class="diag-subtitle">Пошаговый аудит вашего профиля для поступления</p>
+                    </div>
+                    <button class="diag-close" onclick="closeModal('diagnosticModal')">×</button>
+                </header>
+
+                <div class="diag-body">
+                    <!-- Section 1: Introduction -->
+                    <section class="diag-section intro-section">
+                        <div class="diag-alert">
+                            <strong>Давайте познакомимся.</strong> Расскажите, чем вы занимаетесь, где живете, куда
+                            подаете?
+                            <small>Смысл этого блока: узнать базовую информацию о вас.</small>
+                        </div>
+                        <div class="diag-form-grid">
+                            <div class="diag-field">
+                                <label>Имя Фамилия</label>
+                                <input type="text" placeholder="Введите ФИО">
+                            </div>
+                            <div class="diag-field">
+                                <label>Школа / Колледж</label>
+                                <input type="text" placeholder="Учебное заведение">
+                            </div>
+                            <div class="diag-field">
+                                <label>Финансовая платёжеспособность</label>
+                                <div class="input-with-select">
+                                    <input type="number" placeholder="Бюджет">
+                                    <select>
+                                        <option>$</option>
+                                        <option>UZS</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="diag-field full-width">
+                                <label>5 ваших самых важных достижений</label>
+                                <div class="diag-achievements">
+                                    <input type="text" placeholder="1. Achievement">
+                                    <input type="text" placeholder="2. Achievement">
+                                    <input type="text" placeholder="3. Achievement">
+                                    <input type="text" placeholder="4. Achievement">
+                                    <input type="text" placeholder="5. Achievement">
+                                </div>
+                            </div>
+                            <div class="diag-field full-width">
+                                <label>Список вопросов до начала сессии</label>
+                                <textarea placeholder="Что вас волнует больше всего?"></textarea>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 2: Competencies Rating -->
+                    <section class="diag-section rating-section">
+                        <h3 class="section-divider">Оценка основных компетенций (360° Фидбек)</h3>
+                        <div class="competencies-grid">
+                            <!-- Academic -->
+                            <div class="comp-card" data-comp="academic">
+                                <div class="comp-header">
+                                    <h4>Academic Rating</h4>
+                                    <select onchange="updateDiagChart()" class="diag-rating-select">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5" selected>5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                                <div class="comp-levels">
+                                    <div class="level lv-6">GPA &lt; 3.5, SAT &lt; 1150</div>
+                                    <div class="level lv-5">SAT ≈ 1250, GPA ≈ 4</div>
+                                    <div class="level lv-4">SAT ≈ 1320, Top 25-30%</div>
+                                    <div class="level lv-3">SAT ≈ 1400, Top 15-25%</div>
+                                    <div class="level lv-2">SAT ≈ 1480, Top 7%</div>
+                                    <div class="level lv-1">SAT > 1490, Top 1-2%, SPIKE</div>
+                                </div>
+                            </div>
+                            <!-- Extracurricular -->
+                            <div class="comp-card" data-comp="extra">
+                                <div class="comp-header">
+                                    <h4>Extracurricular Rating</h4>
+                                    <select onchange="updateDiagChart()" class="diag-rating-select">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3" selected>3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                                <div class="comp-levels">
+                                    <div class="level lv-6">Нет занятий</div>
+                                    <div class="level lv-5">Есть интересы, нет действий</div>
+                                    <div class="level lv-4">Кружки внутри школы</div>
+                                    <div class="level lv-3">Активный участник секций</div>
+                                    <div class="level lv-2">Лидер клубов, Олимпиады</div>
+                                    <div class="level lv-1">Social Impact, Конкурсы</div>
+                                </div>
+                            </div>
+                            <!-- Intellectual Vitality -->
+                            <div class="comp-card" data-comp="intellect">
+                                <div class="comp-header">
+                                    <h4>Intellectual Vitality</h4>
+                                    <select onchange="updateDiagChart()" class="diag-rating-select">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3" selected>3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                                <div class="comp-levels">
+                                    <div class="level lv-6">Нет интересов</div>
+                                    <div class="level lv-5">Хорошист, нет олимпиад</div>
+                                    <div class="level lv-4">Масштабные олимпиады</div>
+                                    <div class="level lv-3">Проектные работы</div>
+                                    <div class="level lv-2">Платформы (Coursera), стаж</div>
+                                    <div class="level lv-1">Призовые места (Мир), SPIKE</div>
+                                </div>
+                            </div>
+                            <!-- Эссе -->
+                            <div class="comp-card" data-comp="essay">
+                                <div class="comp-header">
+                                    <h4>Эссе (Motivation)</h4>
+                                    <select onchange="updateDiagChart()" class="diag-rating-select">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3" selected>3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                                <div class="comp-levels">
+                                    <div class="level lv-6">Нет опыта письма</div>
+                                    <div class="level lv-5">Слабые навыки</div>
+                                    <div class="level lv-4">Умеет излагать мысли</div>
+                                    <div class="level lv-3">Хорошие навыки, структура</div>
+                                    <div class="level lv-2">Сильная адаптация под вуз</div>
+                                    <div class="level lv-1">Художественный подход</div>
+                                </div>
+                            </div>
+                            <!-- Рекомендации -->
+                            <div class="comp-card" data-comp="recs">
+                                <div class="comp-header">
+                                    <h4>Рекомендации</h4>
+                                    <select onchange="updateDiagChart()" class="diag-rating-select">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3" selected>3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                                <div class="comp-levels">
+                                    <div class="level lv-6">Нет представления</div>
+                                    <div class="level lv-5">Знает о письме, нет инициативы</div>
+                                    <div class="level lv-4">Планирует найти менторов</div>
+                                    <div class="level lv-3">Ряд рекомендателей найден</div>
+                                    <div class="level lv-2">Сильные письма готовы</div>
+                                    <div class="level lv-1">Письма готовы к рассылке</div>
+                                </div>
+                            </div>
+                            <!-- EQ -->
+                            <div class="comp-card" data-comp="eq">
+                                <div class="comp-header">
+                                    <h4>Emotional Intelligence EQ</h4>
+                                    <select onchange="updateDiagChart()" class="diag-rating-select">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3" selected>3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                                <div class="comp-levels">
+                                    <div class="level lv-6">Подвержен срывам</div>
+                                    <div class="level lv-5">Сложности с приоритетами</div>
+                                    <div class="level lv-4">Имеются представления об EQ</div>
+                                    <div class="level lv-3">Ежедневный учет показателей</div>
+                                    <div class="level lv-2">Умение управлять собой</div>
+                                    <div class="level lv-1">Высокий уровень харизмы</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 3: Radar Chart & Recap -->
+                    <section class="diag-section chart-section">
+                        <div class="diag-chart-container">
+                            <canvas id="diagRadarChart"></canvas>
+                        </div>
+                        <div class="diag-recap">
+                            <label>Комментарии трекера:</label>
+                            <textarea placeholder="Общий вывод по профилю..."></textarea>
+                        </div>
+                    </section>
+
+                    <!-- Section 4: Instrument Grid -->
+                    <section class="diag-section instruments-section">
+                        <h3 class="section-divider">Инструменты развития личности (Checklist)</h3>
+                        <div class="instruments-grid">
+                            <!-- Category: Application Progress -->
+                            <div class="inst-col">
+                                <h5>Application Progress</h5>
+                                <div class="inst-item" onclick="toggleInst(this)">Choice of Universities</div>
+                                <div class="inst-item" onclick="toggleInst(this)">CommonApp</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Personal Statement</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Supplemental Essays</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Recommendation Letter</div>
+                                <div class="inst-item priority" onclick="toggleInst(this)">College List</div>
+                            </div>
+                            <!-- Category: Academic -->
+                            <div class="inst-col">
+                                <h5>Academic Development</h5>
+                                <div class="inst-item" onclick="toggleInst(this)">Advanced Placement (AP)</div>
+                                <div class="inst-item priority" onclick="toggleInst(this)">AS Level</div>
+                                <div class="inst-item" onclick="toggleInst(this)">A Level / IB</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Honors Program</div>
+                            </div>
+                            <!-- Category: Bottlenecks -->
+                            <div class="inst-col">
+                                <h5>Bottlenecks (Риски)</h5>
+                                <div class="inst-item priority" onclick="toggleInst(this)">Time Management</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Finances</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Region Specifics</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Parents Support</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Mental Health</div>
+                            </div>
+                            <!-- Category: Systems -->
+                            <div class="inst-col">
+                                <h5>Системы / Трекинг</h5>
+                                <div class="inst-item priority" onclick="toggleInst(this)">Master Plan</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Notion / Spreadsheets</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Google Calendar</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Exams Plan</div>
+                            </div>
+                            <!-- Category: EC Portfolio -->
+                            <div class="inst-col">
+                                <h5>EC Portfolio</h5>
+                                <div class="inst-item priority" onclick="toggleInst(this)">Собственный проект</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Community Service</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Student Government</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Arts / Internships</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Startups / Athletics</div>
+                            </div>
+                            <!-- Category: Persona -->
+                            <div class="inst-col">
+                                <h5>Personality (Soft)</h5>
+                                <div class="inst-item priority" onclick="toggleInst(this)">Spike / Leadership</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Resilience</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Social Impact</div>
+                                <div class="inst-item" onclick="toggleInst(this)">Critical Thinking</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <footer class="diag-footer">
+                    <button class="btn btn-secondary" onclick="exportDiag()">Сохранить PDF</button>
+                    <button class="btn btn-primary" onclick="closeModal('diagnosticModal')">Завершить аудит</button>
+                </footer>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
