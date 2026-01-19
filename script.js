@@ -895,40 +895,58 @@ function populateDiagTables() {
     }
 }
 
-function exportDiag() {
+function exportDiag(e) {
+    if (typeof html2pdf === 'undefined') {
+        alert('Библиотека для создания PDF еще загружается или заблокирована. Пожалуйста, подождите 5 секунд или используйте стандартную печать (Cmd+P / Ctrl+P).');
+        window.print();
+        return;
+    }
+
     const element = document.querySelector('.diagnostic-container');
     const studentName = document.querySelector('.diag-field input[type="text"]').value || 'Student';
+    const exportBtn = e ? e.currentTarget : document.querySelector('.btn-secondary');
+    const originalBtnText = exportBtn.innerText;
 
-    // Hide buttons for export
+    // Show loading state
+    exportBtn.innerText = 'Генерация...';
+    exportBtn.disabled = true;
+    exportBtn.style.opacity = '0.7';
+
+    // Hide UI elements during capture
     const footer = document.querySelector('.diag-footer');
     const closeBtn = document.querySelector('.diag-close');
-    footer.style.display = 'none';
-    closeBtn.style.display = 'none';
 
+    // Create a temporary container to fix overflow/scroll issues for html2canvas
     const opt = {
-        margin: [10, 10],
+        margin: [10, 5, 10, 5], // Top, Left, Bottom, Right
         filename: `Impact_Diagnostic_${studentName}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: {
             scale: 2,
             useCORS: true,
-            logging: false,
-            letterRendering: true
+            scrollY: 0,
+            scrollX: 0,
+            windowWidth: 1200 // Force a desktop-like width for rendering
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
-    // New Promise-based usage:
-    html2pdf().set(opt).from(element).save().then(() => {
-        // Restore buttons
-        footer.style.display = 'flex';
-        closeBtn.style.display = 'block';
+    // Use a promise to handle restoration correctly
+    html2pdf().set(opt).from(element).toPdf().get('pdf').then(function (pdf) {
+        // You could do additional PDF manipulation here if needed
+    }).save().then(() => {
+        // Restore UI
+        exportBtn.innerText = originalBtnText;
+        exportBtn.disabled = false;
+        exportBtn.style.opacity = '1';
     }).catch(err => {
         console.error('PDF Export Error:', err);
-        footer.style.display = 'flex';
-        closeBtn.style.display = 'block';
-        alert('Ошибка при создании PDF. Попробуйте использовать обычную печать (Cmd+P).');
+        exportBtn.innerText = originalBtnText;
+        exportBtn.disabled = false;
+        exportBtn.style.opacity = '1';
+        alert('Не удалось автоматически скачать файл. Открываю окно печати - выберите "Сохранить как PDF".');
+        window.print();
     });
 }
 
