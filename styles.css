@@ -1297,19 +1297,25 @@ section {
 
 .modal-content {
     position: relative;
-    width: 100%;
-    max-width: 100%;
+    width: 100vw;
     height: 100vh;
     background: #1a1a2e;
     border: none;
     border-radius: 0;
-    box-shadow: none;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transform: scale(1);
+    transform: scale(1.02);
     transition: all var(--transition-base);
     z-index: 2001;
+}
+
+#constructorModal .modal-content {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
 }
 
 .modal.active .modal-content {
@@ -1493,12 +1499,10 @@ section {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    /* Force rows to be equal height */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--spacing-sm);
     height: 100%;
-    padding-bottom: var(--spacing-xs);
+    padding: 0 var(--spacing-lg) var(--spacing-lg);
     overflow-y: auto;
 }
 
