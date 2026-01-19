@@ -1094,7 +1094,106 @@
                         </div>
                     </section>
 
-                    <!-- Section 4: Instrument Grid -->
+                    <!-- Section 4: University List -->
+                    <section class="diag-section uni-list-section">
+                        <h3 class="section-divider">Топовые университеты для подачи</h3>
+                        <div class="diag-alert">
+                            <strong>ВАЖНО:</strong> включить максимальное количество стран для понимания требований и
+                            готовности.
+                        </div>
+                        <table class="diag-table excel-style">
+                            <thead>
+                                <tr>
+                                    <th>Название университета</th>
+                                    <th>Страна</th>
+                                </tr>
+                            </thead>
+                            <tbody id="diagUniBody">
+                                <!-- Will be populated with 8 rows by default -->
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <!-- Section 5: Financial Audit -->
+                    <section class="diag-section financial-section">
+                        <h3 class="section-divider">Финансовый аудит (Доп. затраты)</h3>
+                        <div class="financial-grid">
+                            <div class="costs-table-wrapper">
+                                <table class="diag-table excel-style">
+                                    <thead>
+                                        <tr>
+                                            <th>Статья расходов</th>
+                                            <th>Сумма ($)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="diagCostsBody">
+                                        <tr>
+                                            <td contenteditable="true">Перевод документов</td>
+                                            <td contenteditable="true" class="cost-val" oninput="calcDiagTotal()">100
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true">Консульский сбор</td>
+                                            <td contenteditable="true" class="cost-val" oninput="calcDiagTotal()">80
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true">Билеты</td>
+                                            <td contenteditable="true" class="cost-val" oninput="calcDiagTotal()">200
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true">IELTS / SAT</td>
+                                            <td contenteditable="true" class="cost-val" oninput="calcDiagTotal()">180
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true">Карманные</td>
+                                            <td contenteditable="true" class="cost-val" oninput="calcDiagTotal()">0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="total-dashboard">
+                                <div class="total-big-box">
+                                    <span class="total-label">Итоговая сумма</span>
+                                    <div class="total-amount" id="diagTotalDisplay">$560.00</div>
+                                </div>
+                                <div class="stats-row">
+                                    <div class="stat-item">
+                                        <label>Кол-во ВУЗов</label>
+                                        <input type="number" value="5" id="diagUniCount" oninput="calcDiagTotal()">
+                                    </div>
+                                    <div class="stat-item">
+                                        <label>Средний расход на ВУЗ</label>
+                                        <div class="stat-val" id="diagAvgDisplay">$112.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 6: Priority Roadmap -->
+                    <section class="diag-section roadmap-section">
+                        <h3 class="section-divider">Дорожная карта: Приоритеты и Задачи</h3>
+                        <div class="diag-alert">
+                            Прописать ключевые задачи для выхода личности на новый уровень + расставить по приоритету.
+                        </div>
+                        <table class="diag-table priority-table">
+                            <thead>
+                                <tr>
+                                    <th width="80">Приоритет</th>
+                                    <th>Задачи</th>
+                                    <th width="150">Срок (Deadline)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="diagRoadmapBody">
+                                <!-- Will be populated with 1-10 priorities -->
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <!-- Section 7: Instrument Grid -->
                     <section class="diag-section instruments-section">
                         <h3 class="section-divider">Инструменты развития личности (Checklist)</h3>
                         <div class="instruments-grid">

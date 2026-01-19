@@ -854,13 +854,57 @@ function toggleInst(el) {
     el.classList.toggle('checked');
 }
 
+function calcDiagTotal() {
+    const costCells = document.querySelectorAll('.cost-val');
+    let total = 0;
+    costCells.forEach(cell => {
+        const val = parseFloat(cell.innerText) || 0;
+        total += val;
+    });
+
+    const uniCount = parseInt(document.getElementById('diagUniCount').value) || 1;
+    const avg = total / uniCount;
+
+    document.getElementById('diagTotalDisplay').innerText = `$${total.toFixed(2)}`;
+    document.getElementById('diagAvgDisplay').innerText = `$${avg.toFixed(2)}`;
+}
+
+function populateDiagTables() {
+    // Populate University List (8 rows)
+    const uniBody = document.getElementById('diagUniBody');
+    if (uniBody && uniBody.children.length === 0) {
+        for (let i = 0; i < 8; i++) {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td contenteditable="true"></td><td contenteditable="true"></td>`;
+            uniBody.appendChild(row);
+        }
+    }
+
+    // Populate Roadmap (10 priorities)
+    const roadmapBody = document.getElementById('diagRoadmapBody');
+    if (roadmapBody && roadmapBody.children.length === 0) {
+        for (let i = 1; i <= 10; i++) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><div class="priority-num">${i}</div></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true" class="deadline-cell"></td>
+            `;
+            roadmapBody.appendChild(row);
+        }
+    }
+}
+
 function exportDiag() {
-    alert('Экспорт в PDF... Функция находится в разработке.');
+    // Basic approach: window.print() + CSS @media print
+    window.print();
 }
 
 // Ensure Diagnostic Tool is initialized if opened
 document.addEventListener('DOMContentLoaded', () => {
-    // Other initializations...
+    // Populate static rows
+    populateDiagTables();
+    calcDiagTotal();
     updateDiagChart();
 });
 
