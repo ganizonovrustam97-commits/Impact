@@ -1692,6 +1692,17 @@ section {
     z-index: 1;
 }
 
+/* Specific layout for 3 columns on desktop to center the 4th item */
+@media (min-width: 1200px) {
+    .packages-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .package-card.premium-card {
+        grid-column: 2;
+    }
+}
+
 .package-card {
     background: rgba(255, 255, 255, 0.03);
     /* Glass effect like Service Items */
@@ -3500,6 +3511,7 @@ body.authorized footer {
         transform: rotate(360deg);
     }
 }
+
 /* Target Audience for Packages */
 .target-class {
     font-size: 1.25rem;
