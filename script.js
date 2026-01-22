@@ -183,9 +183,22 @@ function openModal(modalId) {
             initConstructor();
         }
 
-        // Ensure diagnostic chart is drawn
+        // Ensure diagnostic chart is drawn and date is set
         if (modalId === 'diagnosticModal') {
             updateDiagChart();
+            const dateDisplay = document.getElementById('diagDateDisplay');
+            if (dateDisplay) {
+                const now = new Date();
+                const formattedDate = now.toLocaleDateString('ru-RU', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                dateDisplay.innerText = formattedDate;
+
+                const sigDateValue = document.getElementById('sigDateValue');
+                if (sigDateValue) sigDateValue.innerText = formattedDate;
+            }
         }
     }
 }
@@ -903,7 +916,8 @@ function exportDiag(e) {
     }
 
     const element = document.querySelector('.diagnostic-container');
-    const studentName = document.querySelector('.diag-field input[type="text"]').value || 'Student';
+    const studentNameInput = document.querySelector('.diag-field input[placeholder="Введите ФИО"]');
+    const studentName = studentNameInput ? studentNameInput.value || 'Student' : 'Student';
     const exportBtn = e ? e.currentTarget : document.querySelector('.btn-secondary');
     const originalBtnText = exportBtn.innerText;
 
@@ -912,41 +926,86 @@ function exportDiag(e) {
     exportBtn.disabled = true;
     exportBtn.style.opacity = '0.7';
 
-    // Hide UI elements during capture
+    // Select elements to hide/modify
     const footer = document.querySelector('.diag-footer');
     const closeBtn = document.querySelector('.diag-close');
+    const body = document.querySelector('.diag-body');
 
-    // Create a temporary container to fix overflow/scroll issues for html2canvas
+    // Temporarily modify styles for capture
+    const originalFooterDisplay = footer ? footer.style.display : '';
+    const originalCloseDisplay = closeBtn ? closeBtn.style.display : '';
+    const originalOverflow = body ? body.style.overflowY : '';
+    const originalHeight = body ? body.style.height : '';
+
+    if (footer) footer.style.display = 'none';
+    if (closeBtn) closeBtn.style.display = 'none';
+    if (body) {
+        body.style.overflowY = 'visible';
+        body.style.height = 'auto';
+    }
+
     const opt = {
-        margin: [10, 5, 10, 5], // Top, Left, Bottom, Right
+        margin: [10, 5, 10, 5],
         filename: `Impact_Diagnostic_${studentName}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: {
             scale: 2,
             useCORS: true,
-            scrollY: 0,
-            scrollX: 0,
-            windowWidth: 1200 // Force a desktop-like width for rendering
+            logging: false,
+            windowWidth: 1200,
+            onclone: (clonedDoc) => {
+                // Ensure inputs and textareas show their current values in the PDF
+                const clonedModal = clonedDoc.querySelector('.diagnostic-container');
+                if (clonedModal) {
+                    const inputs = clonedModal.querySelectorAll('input, textarea');
+                    inputs.forEach(input => {
+                        const val = input.value;
+                        const parent = input.parentNode;
+                        const span = clonedDoc.createElement('div');
+                        span.innerText = val || '—';
+                        span.style.padding = '8px';
+                        span.style.border = '1px solid #cbd5e1';
+                        span.style.borderRadius = '6px';
+                        span.style.minHeight = input.tagName === 'TEXTAREA' ? '80px' : 'auto';
+                        span.style.fontSize = '0.95rem';
+                        span.style.color = '#1e293b';
+                        span.style.background = '#fff';
+                        span.style.width = '100%';
+                        parent.replaceChild(span, input);
+                    });
+                }
+            }
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
-    // Use a promise to handle restoration correctly
-    html2pdf().set(opt).from(element).toPdf().get('pdf').then(function (pdf) {
-        // You could do additional PDF manipulation here if needed
-    }).save().then(() => {
-        // Restore UI
+    html2pdf().set(opt).from(element).save().then(() => {
+        // Restore original styles
+        if (footer) footer.style.display = originalFooterDisplay;
+        if (closeBtn) closeBtn.style.display = originalCloseDisplay;
+        if (body) {
+            body.style.overflowY = originalOverflow;
+            body.style.height = originalHeight;
+        }
+
         exportBtn.innerText = originalBtnText;
         exportBtn.disabled = false;
         exportBtn.style.opacity = '1';
     }).catch(err => {
         console.error('PDF Export Error:', err);
+        // Restore on error
+        if (footer) footer.style.display = originalFooterDisplay;
+        if (closeBtn) closeBtn.style.display = originalCloseDisplay;
+        if (body) {
+            body.style.overflowY = originalOverflow;
+            body.style.height = originalHeight;
+        }
+
         exportBtn.innerText = originalBtnText;
         exportBtn.disabled = false;
         exportBtn.style.opacity = '1';
-        alert('Не удалось автоматически скачать файл. Открываю окно печати - выберите "Сохранить как PDF".');
-        window.print();
+        alert('Не удалось автоматически скачать файл. Попробуйте стандартную печать (Cmd+P).');
     });
 }
 

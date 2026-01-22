@@ -2640,6 +2640,34 @@ body.authorized footer {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
+.diag-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.diag-logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-right: 1.5rem;
+    border-right: 1px solid #e2e8f0;
+}
+
+.diag-logo-wrapper .logo-text {
+    font-size: 1.25rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.diag-title-group {
+    display: flex;
+    flex-direction: column;
+}
+
 .diag-title {
     color: #0f172a;
     font-size: 1.5rem;
@@ -3022,9 +3050,66 @@ body.authorized footer {
     border-radius: 4px;
 }
 
-.deadline-cell {
-    background: #fee2e2 !important;
-    border-right: 5px solid #ef4444 !important;
+/* Signature Section */
+.signature-section {
+    margin-top: 3rem;
+    background: #fafafa !important;
+    border: 2px solid #e2e8f0 !important;
+}
+
+.signature-grid {
+    display: grid;
+    grid-template-columns: 1fr 120px 1fr;
+    gap: 2rem;
+    align-items: flex-end;
+}
+
+.sig-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sig-item label {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.sig-item input {
+    border: none;
+    border-bottom: 2px solid #1e293b;
+    border-radius: 0;
+    padding: 0.5rem 0;
+    font-weight: 700;
+    background: transparent;
+}
+
+.sig-date {
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid #1e293b;
+}
+
+.stamp-placeholder {
+    width: 100px;
+    height: 100px;
+    border: 3px double #cbd5e1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cbd5e1;
+    font-weight: 900;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    transform: rotate(-15deg);
+}
+
+.sig-stamp {
+    align-items: center;
 }
 
 /* ============================================
@@ -3118,6 +3203,7 @@ body.authorized footer {
         background: #3b82f6 !important;
         color: #fff !important;
         -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 
     .diag-chart-container svg {

@@ -894,8 +894,24 @@
             <div class="diagnostic-container">
                 <header class="diagnostic-header">
                     <div class="diag-header-left">
-                        <h2 class="diag-title">Платная диагностика Impact</h2>
-                        <p class="diag-subtitle">Пошаговый аудит вашего профиля для поступления</p>
+                        <div class="diag-logo-wrapper">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <path d="M20 0L24.5 15.5L40 20L24.5 24.5L20 40L15.5 24.5L0 20L15.5 15.5L20 0Z"
+                                    fill="url(#diag-logo-gradient)" />
+                                <defs>
+                                    <linearGradient id="diag-logo-gradient" x1="0" y1="0" x2="40" y2="40">
+                                        <stop offset="0%" stop-color="#667eea" />
+                                        <stop offset="100%" stop-color="#764ba2" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <span class="logo-text">Impact</span>
+                        </div>
+                        <div class="diag-title-group">
+                            <h2 class="diag-title">Платная диагностика Impact</h2>
+                            <p class="diag-subtitle">Пошаговый аудит вашего профиля для поступления • <span
+                                    id="diagDateDisplay"></span></p>
+                        </div>
                     </div>
                     <button class="diag-close" onclick="closeModal('diagnosticModal')">×</button>
                 </header>
@@ -1249,20 +1265,36 @@
                                 <div class="inst-item" onclick="toggleInst(this)">Social Impact</div>
                                 <div class="inst-item" onclick="toggleInst(this)">Critical Thinking</div>
                             </div>
+                            <!-- Section 8: Conclusion & Signature -->
+                            <section class="diag-section signature-section">
+                                <div class="signature-grid">
+                                    <div class="sig-item">
+                                        <label>Ответственный трекер:</label>
+                                        <input type="text" placeholder="ФИО трекера" value="Нариман Ибрагимов">
+                                    </div>
+                                    <div class="sig-item sig-stamp">
+                                        <div class="stamp-placeholder">
+                                            <span>М.П.</span>
+                                        </div>
+                                        <label>Подпись / Печать</label>
+                                    </div>
+                                    <div class="sig-item">
+                                        <label>Дата аудита:</label>
+                                        <div class="sig-date" id="sigDateValue"></div>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
-                    </section>
-                </div>
 
-                <footer class="diag-footer">
-                    <button class="btn btn-secondary" onclick="exportDiag(event)">Скачать PDF</button>
-                    <button class="btn btn-primary" onclick="closeModal('diagnosticModal')">Завершить аудит</button>
-                </footer>
+                        <footer class="diag-footer">
+                            <button class="btn btn-primary" onclick="exportDiag(event)">Скачать PDF</button>
+                        </footer>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="script.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+        <script src="script.js"></script>
 </body>
 
 </html>
