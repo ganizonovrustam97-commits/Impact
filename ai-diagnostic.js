@@ -16,7 +16,7 @@ const AI_CONFIG = {
     // Вариант 1: OpenAI API
     provider: 'openai', // 'openai' | 'anthropic' | 'local'
     apiKey: '', // Установите в .env или через настройки
-    model: 'gpt-4-turbo-preview', // или 'gpt-3.5-turbo' для экономии
+    model: 'gpt-4o-mini', // Быстрая, дешевая и умная модель (доступна всем)
     baseURL: 'https://api.openai.com/v1',
 
     // Вариант 2: Anthropic Claude
