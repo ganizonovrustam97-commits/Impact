@@ -93,6 +93,7 @@
                 <a href="#" class="nav-link" onclick="openModal('constructorModal'); return false;">Конструктор</a>
                 <a href="#" class="nav-link" onclick="openModal('diagnosticModal'); return false;">Диагностика</a>
                 <a href="#" class="nav-link" onclick="openEnrollmentModal(); return false;">Журнал набора</a>
+                <a href="experts.html" class="nav-link">Эксперты</a>
                 <a href="#packages" class="nav-link">Пакеты</a>
                 <a href="#" class="nav-link" onclick="logoutStaff(); return false;">Выход</a>
             </nav>
@@ -907,24 +908,25 @@
                             </svg>
                             <span class="logo-text">Impact</span>
                         </div>
-                    <div class="diag-title-group">
-                        <h2 class="diag-title">Платная диагностика Impact</h2>
-                        <p class="diag-subtitle">Пошаговый аудит вашего профиля для поступления • <span
-                                id="diagDateDisplay"></span></p>
+                        <div class="diag-title-group">
+                            <h2 class="diag-title">Платная диагностика Impact</h2>
+                            <p class="diag-subtitle">Пошаговый аудит вашего профиля для поступления • <span
+                                    id="diagDateDisplay"></span></p>
+                        </div>
                     </div>
-                </div>
-                <div class="diag-header-right">
-                    <button id="aiGenerateBtn" class="btn btn-ai" title="Автоматически заполнить диагностику с помощью ИИ">
-                        🤖 Сгенерировать с ИИ
-                    </button>
-                    <button class="diag-close" onclick="closeModal('diagnosticModal')">×</button>
-                </div>
-            </header>
+                    <div class="diag-header-right">
+                        <button id="aiGenerateBtn" class="btn btn-ai"
+                            title="Автоматически заполнить диагностику с помощью ИИ">
+                            🤖 Сгенерировать с ИИ
+                        </button>
+                        <button class="diag-close" onclick="closeModal('diagnosticModal')">×</button>
+                    </div>
+                </header>
 
-            <!-- AI Status Bar -->
-            <div id="aiStatus" class="ai-status-bar" style="display: none;"></div>
+                <!-- AI Status Bar -->
+                <div id="aiStatus" class="ai-status-bar" style="display: none;"></div>
 
-            <div class="diag-body">
+                <div class="diag-body">
                     <!-- Section 1: Introduction -->
                     <section class="diag-section intro-section">
                         <div class="diag-alert">

@@ -199,7 +199,7 @@ function openModal(modalId) {
                 const sigDateValue = document.getElementById('sigDateValue');
                 if (sigDateValue) sigDateValue.innerText = formattedDate;
             }
-            
+
             // Инициализируем ИИ функционал при открытии модального окна
             if (typeof initAIDiagnostic === 'function') {
                 setTimeout(() => {
@@ -962,13 +962,11 @@ function exportDiag(e) {
             scale: 2,
             useCORS: true,
             logging: false,
-            windowWidth: 794, // A4 ширина в пикселях при 96 DPI (210mm)
-            windowHeight: 1123, // A4 высота в пикселях (297mm)
             onclone: (clonedDoc) => {
                 const clonedModal = clonedDoc.querySelector('.diagnostic-container');
                 if (clonedModal) {
                     clonedModal.classList.add('is-exporting');
-                    
+
                     // Скрываем кнопки и элементы управления
                     const aiButton = clonedModal.querySelector('#aiGenerateBtn');
                     const closeButton = clonedModal.querySelector('.diag-close');
@@ -976,7 +974,7 @@ function exportDiag(e) {
                     if (aiButton) aiButton.style.display = 'none';
                     if (closeButton) closeButton.style.display = 'none';
                     if (statusBar) statusBar.style.display = 'none';
-                    
+
                     // Заменяем input на текст
                     const inputs = clonedModal.querySelectorAll('input, textarea, select');
                     inputs.forEach(input => {
@@ -986,7 +984,7 @@ function exportDiag(e) {
                         } else {
                             val = input.value || (input.type === 'number' ? '0' : '—');
                         }
-                        
+
                         const parent = input.parentNode;
                         const span = clonedDoc.createElement('div');
                         span.innerText = val;
@@ -997,7 +995,7 @@ function exportDiag(e) {
                         }
                         parent.replaceChild(span, input);
                     });
-                    
+
                     // Обрабатываем contenteditable ячейки
                     const editableCells = clonedModal.querySelectorAll('td[contenteditable="true"]');
                     editableCells.forEach(cell => {
@@ -1008,13 +1006,13 @@ function exportDiag(e) {
                 }
             }
         },
-        jsPDF: { 
-            unit: 'mm', 
-            format: 'a4', 
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
             orientation: 'portrait',
             compress: true
         },
-        pagebreak: { 
+        pagebreak: {
             mode: ['avoid-all', 'css', 'legacy'],
             before: '.diag-section',
             after: '.diag-section',
@@ -1062,6 +1060,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // Call on load
 document.addEventListener('DOMContentLoaded', () => {
     // Auth Check
+    // TEMPORARY AUTO-LOGIN FOR DEV
+    localStorage.setItem('impact_staff_authorized', 'true');
     const isAuth = localStorage.getItem('impact_staff_authorized');
     const overlay = document.getElementById('staffAuthOverlay');
 

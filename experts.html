@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши Эксперты | Impact Admissions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        .experts-page {
+            background-color: var(--color-bg-dark);
+            min-height: 100vh;
+            color: var(--color-text-primary);
+        }
+
+        .expert-hero {
+            padding: 120px 20px 60px;
+            text-align: center;
+            background: radial-gradient(circle at top center, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+        }
+
+        .expert-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+            display: grid;
+            gap: 40px;
+        }
+
+        .expert-card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            transition: all var(--transition-base);
+        }
+
+        .expert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--color-primary);
+        }
+
+        .expert-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            min-height: 500px;
+        }
+
+        .expert-content {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .expert-role {
+            color: var(--color-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .expert-name {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .expert-bio {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+
+        .expert-bio p {
+            margin-bottom: 15px;
+        }
+
+        .expert-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .expert-tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border);
+        }
+
+        .back-link {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            color: var(--color-text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .back-link:hover {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        @media (max-width: 900px) {
+            .expert-card {
+                grid-template-columns: 1fr;
+            }
+
+            .expert-image {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body class="experts-page">
+    <a href="index.html" class="back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        Назад на главную
+    </a>
+
+    <div class="expert-hero">
+        <h1 class="gradient-text" style="font-size: 3.5rem; margin-bottom: 1rem;">Наши Эксперты</h1>
+        <p style="color: var(--color-text-secondary); font-size: 1.2rem;">Команда профессионалов, меняющая будущее
+            образования</p>
+    </div>
+
+    <div class="expert-grid">
+        <article class="expert-card">
+            <div class="image-wrapper">
+                <img src="public/images/zulfiya.jpg" alt="Зульфия Очилова" class="expert-image">
+            </div>
+            <div class="expert-content">
+                <div class="expert-role">Архитектура и Дизайн</div>
+                <h2 class="expert-name">Зульфия Очилова</h2>
+
+                <div class="expert-bio">
+                    <p>Зульфия Очилова — мотивированная студентка, ориентированная на развитие в сфере архитектуры и
+                        дизайна, с активным интересом к международному образованию и профессиональной практике. В 2024
+                        году подавала документы в ведущие университеты Италии, включая University of Bologna, Sapienza
+                        University of Rome, Politecnico di Torino и Politecnico di Milano, что подтверждает её
+                        целенаправленность и академические амбиции.</p>
+
+                    <p>Зульфия имеет опыт профессиональной стажировки в Узбекистане под наставничеством Мурада Назарова,
+                        где получила практические навыки и понимание реальных процессов в сфере архитектуры,
+                        девелопмента и проектного мышления. Этот опыт позволил ей связать академические знания с
+                        практикой и сформировать системный подход к профессии.</p>
+                </div>
+
+                <div class="expert-tags">
+                    <span class="expert-tag">Архитектурное проектирование</span>
+                    <span class="expert-tag">Дизайн среды</span>
+                    <span class="expert-tag">Устойчивая архитектура</span>
+                    <span class="expert-tag">Визуальная коммуникация</span>
+                </div>
+            </div>
+        </article>
+    </div>
+</body>
+
+</html>
