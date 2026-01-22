@@ -952,7 +952,7 @@ function exportDiag(e) {
             scale: 2,
             useCORS: true,
             logging: false,
-            windowWidth: 1024,
+            windowWidth: 800,
             onclone: (clonedDoc) => {
                 const clonedModal = clonedDoc.querySelector('.diagnostic-container');
                 if (clonedModal) {

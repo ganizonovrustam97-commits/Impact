@@ -2705,6 +2705,7 @@ body.authorized footer {
     border: 1px solid rgba(0, 0, 0, 0.05);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease;
+    width: 100%;
 }
 
 .diagnostic-section {
@@ -2754,12 +2755,35 @@ body.authorized footer {
     color: #1e293b;
 }
 
-.diag-field input:focus,
 .diag-field textarea:focus {
     border-color: var(--color-primary);
     background: #fff;
     box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
     outline: none;
+}
+
+.diag-form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+@media (max-width: 1200px) {
+    .diag-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .diag-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.diag-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .input-with-select {
@@ -3195,21 +3219,29 @@ body.authorized footer {
     white-space: pre-wrap;
 }
 
+.is-exporting .diagnostic-container {
+    width: 800px !important;
+    margin: 0 auto !important;
+    background: #fff !important;
+}
+
 .is-exporting .diag-section {
-    page-break-inside: avoid;
-    break-inside: avoid;
-    margin-bottom: 30px !important;
-    padding: 25px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-bottom: 20px !important;
+    padding: 20px !important;
     border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
 }
 
 .is-exporting .diag-body {
-    padding: 0 20px !important;
+    padding: 20px !important;
+    height: auto !important;
+    overflow: visible !important;
 }
 
-.is-exporting .diag-header {
-    padding: 20px 30px !important;
-    border-bottom: 3px solid #3b82f6 !important;
+.is-exporting .diagnostic-content {
+    background: #fff !important;
 }
 
 .diag-section {
