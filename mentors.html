@@ -47,26 +47,38 @@
             border-color: var(--color-primary);
         }
 
-        .mentor-image-placeholder {
+        /* PHOTO STYLES */
+        .mentor-image {
             width: 100%;
             height: 350px;
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 5rem;
-            font-weight: 800;
-            position: relative;
+            background-image: url('public/images/mentors_all.jpg');
+            background-size: 600% auto;
+            /* 6 cols in image */
+            background-repeat: no-repeat;
+            background-position-y: 40%;
+            /* Adjust vertical alignment */
         }
 
-        .mentor-image-placeholder::after {
-            content: 'Фото';
-            position: absolute;
-            font-size: 1rem;
-            bottom: 20px;
-            opacity: 0.5;
+        /* Positions based on column index (0-5) */
+        .pos-aida {
+            background-position-x: 0%;
         }
+
+        .pos-madina {
+            background-position-x: 40%;
+        }
+
+        /* 3rd col */
+        .pos-amir {
+            background-position-x: 60%;
+        }
+
+        /* 4th col */
+        .pos-anna {
+            background-position-x: 80%;
+        }
+
+        /* 5th col */
 
         .mentor-content {
             padding: 30px;
@@ -255,7 +267,7 @@
     <div class="mentor-grid">
         <!-- Аида Маханова -->
         <article class="mentor-card" data-name="аида маханова aida makhanova">
-            <div class="mentor-image-placeholder">АМ</div>
+            <div class="mentor-image pos-aida"></div>
             <div class="mentor-content">
                 <div class="mentor-role">Ментор по поступлению</div>
                 <h2 class="mentor-name">Аида Маханова</h2>
@@ -283,7 +295,7 @@
 
         <!-- Мадина Болатова -->
         <article class="mentor-card" data-name="мадина болатова madina bolatova">
-            <div class="mentor-image-placeholder">МБ</div>
+            <div class="mentor-image pos-madina"></div>
             <div class="mentor-content">
                 <div class="mentor-role">Ментор по поступлению</div>
                 <h2 class="mentor-name">Мадина Болатова</h2>
@@ -311,7 +323,7 @@
 
         <!-- Амир Амангельдиев -->
         <article class="mentor-card" data-name="амир амангельдиев amir amangeldiev">
-            <div class="mentor-image-placeholder">АА</div>
+            <div class="mentor-image pos-amir"></div>
             <div class="mentor-content">
                 <div class="mentor-role">Ментор по поступлению</div>
                 <h2 class="mentor-name">Амир Амангельдиев</h2>
@@ -339,7 +351,7 @@
 
         <!-- Анна Виатова -->
         <article class="mentor-card" data-name="анна виатова anna viatova">
-            <div class="mentor-image-placeholder">АВ</div>
+            <div class="mentor-image pos-anna"></div>
             <div class="mentor-content">
                 <div class="mentor-role">Ментор по письму</div>
                 <h2 class="mentor-name">Анна Виатова</h2>
