@@ -952,25 +952,19 @@ function exportDiag(e) {
             scale: 2,
             useCORS: true,
             logging: false,
-            windowWidth: 1200,
+            windowWidth: 1024,
             onclone: (clonedDoc) => {
-                // Ensure inputs and textareas show their current values in the PDF
                 const clonedModal = clonedDoc.querySelector('.diagnostic-container');
                 if (clonedModal) {
+                    clonedModal.classList.add('is-exporting');
                     const inputs = clonedModal.querySelectorAll('input, textarea');
                     inputs.forEach(input => {
                         const val = input.value;
                         const parent = input.parentNode;
                         const span = clonedDoc.createElement('div');
-                        span.innerText = val || '—';
-                        span.style.padding = '8px';
-                        span.style.border = '1px solid #cbd5e1';
-                        span.style.borderRadius = '6px';
-                        span.style.minHeight = input.tagName === 'TEXTAREA' ? '80px' : 'auto';
-                        span.style.fontSize = '0.95rem';
-                        span.style.color = '#1e293b';
-                        span.style.background = '#fff';
-                        span.style.width = '100%';
+                        span.innerText = val || (input.type === 'number' ? '0' : '—');
+                        span.className = 'pdf-value-display';
+                        if (input.tagName === 'TEXTAREA') span.classList.add('is-textarea');
                         parent.replaceChild(span, input);
                     });
                 }
