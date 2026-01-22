@@ -695,7 +695,8 @@ function initEnrollmentTable() {
     // 1. Add existing students (First)
     for (let i = 0; i < studentNames.length; i++) {
         const date = new Date();
-        date.setDate(today.getDate() - (i + 1));
+        // Sort from old to new (top to bottom)
+        date.setDate(today.getDate() - (studentNames.length - i));
 
         const formattedDate = date.toLocaleDateString('ru-RU', {
             month: '2-digit',
@@ -708,7 +709,8 @@ function initEnrollmentTable() {
         let status = "АКТИВНЫЙ";
         let statusClass = "status-active";
 
-        if (i < 2) {
+        // Last 2 students are PREPAID (most recent)
+        if (i >= studentNames.length - 2) {
             status = "ПРЕДОПЛАТА";
             statusClass = "status-prepaid";
         }
