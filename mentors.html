@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши Менторы | Impact Admissions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        .mentors-page {
+            background-color: var(--color-bg-dark);
+            min-height: 100vh;
+            color: var(--color-text-primary);
+        }
+
+        .mentor-hero {
+            padding: 120px 20px 60px;
+            text-align: center;
+            background: radial-gradient(circle at top center, rgba(118, 75, 162, 0.15) 0%, transparent 70%);
+        }
+
+        .mentor-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+            display: grid;
+            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        }
+
+        .mentor-card {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all var(--transition-base);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mentor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--color-primary);
+        }
+
+        .mentor-image-placeholder {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 5rem;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .mentor-image-placeholder::after {
+            content: 'Фото';
+            position: absolute;
+            font-size: 1rem;
+            bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .mentor-content {
+            padding: 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mentor-role {
+            color: var(--color-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        .mentor-name {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .mentor-stats {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mentor-stat-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+
+        .mentor-stat-icon {
+            color: var(--color-primary);
+            margin-top: 3px;
+        }
+
+        .mentor-tags {
+            margin-top: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .mentor-tag {
+            background: rgba(102, 126, 234, 0.1);
+            color: #81a4f8;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Modal Styles (Shared) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            position: relative;
+            background: var(--color-bg-card);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-xl);
+            width: 90%;
+            max-width: 500px;
+            z-index: 1001;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .back-link {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            color: var(--color-text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .back-link:hover {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .hidden-card {
+            display: none !important;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            margin-top: 10px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--color-text-secondary);
+        }
+    </style>
+</head>
+
+<body class="mentors-page">
+    <a href="index.html" class="back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        Назад на главную
+    </a>
+
+    <div class="mentor-hero">
+        <h1 class="gradient-text" style="font-size: 3.5rem; margin-bottom: 1rem;">Наши Менторы</h1>
+        <p style="color: var(--color-text-secondary); font-size: 1.2rem;">Наставники, которые приведут вас к мечте</p>
+    </div>
+
+    <div class="mentor-grid">
+        <!-- Аида Маханова -->
+        <article class="mentor-card" data-name="аида маханова aida makhanova">
+            <div class="mentor-image-placeholder">АМ</div>
+            <div class="mentor-content">
+                <div class="mentor-role">Ментор по поступлению</div>
+                <h2 class="mentor-name">Аида Маханова</h2>
+
+                <div class="mentor-stats">
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">🎓</span>
+                        <span>Выпускница <strong>Yonsei University</strong></span>
+                    </div>
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">🏆</span>
+                        <span>Победитель программы <strong>"Оркен"</strong> ($24 000)</span>
+                    </div>
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">📈</span>
+                        <span>Более <strong>100 учеников</strong> поступили в университет</span>
+                    </div>
+                </div>
+
+                <div class="mentor-tags">
+                    <span class="mentor-tag">Азия</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Мадина Болатова -->
+        <article class="mentor-card" data-name="мадина болатова madina bolatova">
+            <div class="mentor-image-placeholder">МБ</div>
+            <div class="mentor-content">
+                <div class="mentor-role">Ментор по поступлению</div>
+                <h2 class="mentor-name">Мадина Болатова</h2>
+
+                <div class="mentor-stats">
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">🎓</span>
+                        <span>Выпускница <strong>University of Padua</strong></span>
+                    </div>
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">🇮🇹</span>
+                        <span>Обладательница полного гранта со стипендией в <strong>Италии</strong></span>
+                    </div>
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">📈</span>
+                        <span>Более <strong>100 успешно поступивших</strong> учеников</span>
+                    </div>
+                </div>
+
+                <div class="mentor-tags">
+                    <span class="mentor-tag">Европа</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Амир Амангельдиев -->
+        <article class="mentor-card" data-name="амир амангельдиев amir amangeldiev">
+            <div class="mentor-image-placeholder">АА</div>
+            <div class="mentor-content">
+                <div class="mentor-role">Ментор по поступлению</div>
+                <h2 class="mentor-name">Амир Амангельдиев</h2>
+
+                <div class="mentor-stats">
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">🎓</span>
+                        <span>Выпускник <strong>Technical University of Munich</strong></span>
+                    </div>
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">🏆</span>
+                        <span>Победитель программы <strong>"Оркен"</strong> ($24 000)</span>
+                    </div>
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">📈</span>
+                        <span>Более <strong>50 учеников</strong> поступили на грант</span>
+                    </div>
+                </div>
+
+                <div class="mentor-tags">
+                    <span class="mentor-tag">Европа</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Анна Виатова -->
+        <article class="mentor-card" data-name="анна виатова anna viatova">
+            <div class="mentor-image-placeholder">АВ</div>
+            <div class="mentor-content">
+                <div class="mentor-role">Ментор по письму</div>
+                <h2 class="mentor-name">Анна Виатова</h2>
+
+                <div class="mentor-stats">
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">🎓</span>
+                        <span>Выпускница <strong>University of Oxford</strong></span>
+                    </div>
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">🎤</span>
+                        <span>Спикер 12-ой Европейской конференции (2024, London)</span>
+                    </div>
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">📝</span>
+                        <span>Более <strong>200 писем</strong> написано с учениками</span>
+                    </div>
+                </div>
+
+                <div class="mentor-tags">
+                    <span class="mentor-tag">США</span>
+                    <span class="mentor-tag">Великобритания</span>
+                    <span class="mentor-tag">Европа</span>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- Mentor Search Modal -->
+    <div id="mentorIntroModal" class="modal active">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <h2 class="gradient-text" style="font-size: 2rem; margin-bottom: 1rem;">Найти Моего Ментора</h2>
+            <p style="color: var(--color-text-secondary); margin-bottom: 2rem;">Введите имя ментора, к которому вы
+                хотите записаться, или посмотрите всех наших наставников.</p>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <input type="text" id="mentorSearchInput" placeholder="Введите имя ментора (например: Аида)"
+                    style="padding: 1rem; border-radius: 12px; border: 1px solid var(--color-border); background: rgba(255,255,255,0.05); color: #fff; font-size: 1rem; width: 100%; outline: none;">
+
+                <button onclick="filterMentors()" class="btn">
+                    Найти Ментора
+                </button>
+
+                <button onclick="showAllMentors()" class="btn btn-outline">
+                    Показать всех менторов
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterMentors() {
+            const input = document.getElementById('mentorSearchInput');
+            const query = input.value.toLowerCase().trim();
+            const modal = document.getElementById('mentorIntroModal');
+            const cards = document.querySelectorAll('.mentor-card');
+
+            if (!query) {
+                input.style.borderColor = '#ef4444';
+                setTimeout(() => input.style.borderColor = 'var(--color-border)', 500);
+                return;
+            }
+
+            let found = false;
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                if (name.includes(query)) {
+                    card.classList.remove('hidden-card');
+                    found = true;
+                } else {
+                    card.classList.add('hidden-card');
+                }
+            });
+
+            if (found) {
+                modal.classList.remove('active');
+            } else {
+                alert('Ментор с таким именем не найден. Попробуйте еще раз или посмотрите весь список.');
+            }
+        }
+
+        function showAllMentors() {
+            const modal = document.getElementById('mentorIntroModal');
+            const cards = document.querySelectorAll('.mentor-card');
+            cards.forEach(card => card.classList.remove('hidden-card'));
+            modal.classList.remove('active');
+        }
+
+        document.getElementById('mentorSearchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') filterMentors();
+        });
+    </script>
+</body>
+
+</html>
