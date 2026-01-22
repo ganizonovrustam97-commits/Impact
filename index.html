@@ -907,16 +907,24 @@
                             </svg>
                             <span class="logo-text">Impact</span>
                         </div>
-                        <div class="diag-title-group">
-                            <h2 class="diag-title">Платная диагностика Impact</h2>
-                            <p class="diag-subtitle">Пошаговый аудит вашего профиля для поступления • <span
-                                    id="diagDateDisplay"></span></p>
-                        </div>
+                    <div class="diag-title-group">
+                        <h2 class="diag-title">Платная диагностика Impact</h2>
+                        <p class="diag-subtitle">Пошаговый аудит вашего профиля для поступления • <span
+                                id="diagDateDisplay"></span></p>
                     </div>
+                </div>
+                <div class="diag-header-right">
+                    <button id="aiGenerateBtn" class="btn btn-ai" title="Автоматически заполнить диагностику с помощью ИИ">
+                        🤖 Сгенерировать с ИИ
+                    </button>
                     <button class="diag-close" onclick="closeModal('diagnosticModal')">×</button>
-                </header>
+                </div>
+            </header>
 
-                <div class="diag-body">
+            <!-- AI Status Bar -->
+            <div id="aiStatus" class="ai-status-bar" style="display: none;"></div>
+
+            <div class="diag-body">
                     <!-- Section 1: Introduction -->
                     <section class="diag-section intro-section">
                         <div class="diag-alert">
@@ -1295,6 +1303,7 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
         <script src="script.js"></script>
+        <script src="ai-diagnostic.js"></script>
 </body>
 
 </html>

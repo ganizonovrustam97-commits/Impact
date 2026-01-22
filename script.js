@@ -199,6 +199,16 @@ function openModal(modalId) {
                 const sigDateValue = document.getElementById('sigDateValue');
                 if (sigDateValue) sigDateValue.innerText = formattedDate;
             }
+            
+            // Инициализируем ИИ функционал при открытии модального окна
+            if (typeof initAIDiagnostic === 'function') {
+                setTimeout(() => {
+                    const button = document.getElementById('aiGenerateBtn');
+                    if (button) {
+                        initAIDiagnostic();
+                    }
+                }, 150);
+            }
         }
     }
 }
@@ -945,33 +955,71 @@ function exportDiag(e) {
     }
 
     const opt = {
-        margin: [10, 5, 10, 5],
+        margin: [8, 8, 8, 8], // Уменьшены отступы для A4
         filename: `Impact_Diagnostic_${studentName}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { type: 'jpeg', quality: 0.95 },
         html2canvas: {
             scale: 2,
             useCORS: true,
             logging: false,
-            windowWidth: 800,
+            windowWidth: 794, // A4 ширина в пикселях при 96 DPI (210mm)
+            windowHeight: 1123, // A4 высота в пикселях (297mm)
             onclone: (clonedDoc) => {
                 const clonedModal = clonedDoc.querySelector('.diagnostic-container');
                 if (clonedModal) {
                     clonedModal.classList.add('is-exporting');
-                    const inputs = clonedModal.querySelectorAll('input, textarea');
+                    
+                    // Скрываем кнопки и элементы управления
+                    const aiButton = clonedModal.querySelector('#aiGenerateBtn');
+                    const closeButton = clonedModal.querySelector('.diag-close');
+                    const statusBar = clonedModal.querySelector('#aiStatus');
+                    if (aiButton) aiButton.style.display = 'none';
+                    if (closeButton) closeButton.style.display = 'none';
+                    if (statusBar) statusBar.style.display = 'none';
+                    
+                    // Заменяем input на текст
+                    const inputs = clonedModal.querySelectorAll('input, textarea, select');
                     inputs.forEach(input => {
-                        const val = input.value;
+                        let val = '';
+                        if (input.tagName === 'SELECT') {
+                            val = input.options[input.selectedIndex]?.text || '';
+                        } else {
+                            val = input.value || (input.type === 'number' ? '0' : '—');
+                        }
+                        
                         const parent = input.parentNode;
                         const span = clonedDoc.createElement('div');
-                        span.innerText = val || (input.type === 'number' ? '0' : '—');
+                        span.innerText = val;
                         span.className = 'pdf-value-display';
-                        if (input.tagName === 'TEXTAREA') span.classList.add('is-textarea');
+                        if (input.tagName === 'TEXTAREA') {
+                            span.classList.add('is-textarea');
+                            span.style.whiteSpace = 'pre-wrap';
+                        }
                         parent.replaceChild(span, input);
+                    });
+                    
+                    // Обрабатываем contenteditable ячейки
+                    const editableCells = clonedModal.querySelectorAll('td[contenteditable="true"]');
+                    editableCells.forEach(cell => {
+                        cell.removeAttribute('contenteditable');
+                        cell.style.border = 'none';
+                        cell.style.padding = '4px 0';
                     });
                 }
             }
         },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        jsPDF: { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'portrait',
+            compress: true
+        },
+        pagebreak: { 
+            mode: ['avoid-all', 'css', 'legacy'],
+            before: '.diag-section',
+            after: '.diag-section',
+            avoid: ['.diag-section', '.comp-card', '.total-big-box']
+        }
     };
 
     html2pdf().set(opt).from(element).save().then(() => {
