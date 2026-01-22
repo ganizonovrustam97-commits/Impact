@@ -87,6 +87,13 @@
             background-position: center top;
         }
 
+        /* Custom image for Ashraf */
+        .pos-ashraf {
+            background-image: url('public/images/ashraf.jpg');
+            background-size: cover;
+            background-position: center top;
+        }
+
         .mentor-content {
             padding: 30px;
             flex: 1;
@@ -420,6 +427,41 @@
                 </div>
             </div>
         </article>
+
+        <!-- Ашраф Азами -->
+        <article class="mentor-card" data-name="ашраф азами ashraf azami">
+            <div class="mentor-image pos-ashraf"></div>
+            <div class="mentor-content">
+                <div class="mentor-role">Стратегия & Личный Бренд</div>
+                <h2 class="mentor-name">Ашраф Азами</h2>
+
+                <div class="mentor-stats">
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">🎓</span>
+                        <span>Студент <strong>Northwestern University</strong> in Qatar</span>
+                    </div>
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">🏆</span>
+                        <span>Лауреат премии <strong>Европейского Союза</strong> в области инноваций</span>
+                    </div>
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">🌐</span>
+                        <span>Участник Microsoft AI for Health & Финалист Mediacamp</span>
+                    </div>
+                    <div class="mentor-stat-item">
+                        <span class="mentor-stat-icon">✨</span>
+                        <span>Член президиума Национальной академии наук РТ</span>
+                    </div>
+                </div>
+
+                <div class="mentor-tags">
+                    <span class="mentor-tag">Стратегия</span>
+                    <span class="mentor-tag">Личный Бренд</span>
+                    <span class="mentor-tag">США</span>
+                    <span class="mentor-tag">Катар</span>
+                </div>
+            </div>
+        </article>
     </div>
 
     <!-- Mentor Search Modal -->
@@ -431,7 +473,7 @@
                 хотите записаться, или посмотрите всех наших наставников.</p>
 
             <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <input type="text" id="mentorSearchInput" placeholder="Введите имя ментора (например: Амина)"
+                <input type="text" id="mentorSearchInput" placeholder="Введите имя ментора (например: Аида)"
                     style="padding: 1rem; border-radius: 12px; border: 1px solid var(--color-border); background: rgba(255,255,255,0.05); color: #fff; font-size: 1rem; width: 100%; outline: none;">
 
                 <button onclick="filterMentors()" class="btn">
