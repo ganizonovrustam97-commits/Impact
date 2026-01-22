@@ -18,17 +18,24 @@ const AI_CONFIG = {
     apiKey: '', // Установите в .env или через настройки
     model: 'gpt-4-turbo-preview', // или 'gpt-3.5-turbo' для экономии
     baseURL: 'https://api.openai.com/v1',
-    
+
     // Вариант 2: Anthropic Claude
     // provider: 'anthropic',
     // apiKey: '',
     // model: 'claude-3-opus-20240229',
     // baseURL: 'https://api.anthropic.com/v1',
-    
+
     // Вариант 3: Локальный сервер (Ollama, LM Studio и т.д.)
     // provider: 'local',
     // baseURL: 'http://localhost:11434/v1', // Ollama
 };
+
+// Пытаемся загрузить сохраненный ключ
+const savedKey = localStorage.getItem('openai_api_key');
+if (savedKey) {
+    AI_CONFIG.apiKey = savedKey;
+    console.log('🔑 API ключ загружен из хранилища');
+}
 
 // Кэш для избежания повторных запросов
 const aiCache = new Map();
@@ -49,7 +56,7 @@ function collectDiagnosticData() {
             .map(input => input.value)
             .filter(v => v.trim()),
         questions: document.querySelector('.intro-section textarea')?.value || '',
-        
+
         // Рейтинги компетенций
         ratings: {
             academic: parseInt(document.querySelector('[data-comp="academic"] .diag-rating-select')?.value || '3'),
@@ -59,7 +66,7 @@ function collectDiagnosticData() {
             recommendations: parseInt(document.querySelector('[data-comp="recs"] .diag-rating-select')?.value || '3'),
             eq: parseInt(document.querySelector('[data-comp="eq"] .diag-rating-select')?.value || '3')
         },
-        
+
         // Финансовые данные
         uniCount: parseInt(document.getElementById('diagUniCount')?.value || '5'),
         costs: Array.from(document.querySelectorAll('#diagCostsBody tr')).map(row => ({
@@ -67,7 +74,7 @@ function collectDiagnosticData() {
             amount: parseFloat(row.querySelector('.cost-val')?.innerText || '0')
         }))
     };
-    
+
     return data;
 }
 
@@ -83,7 +90,7 @@ Essay Writing: ${data.ratings.essay}/6
 Recommendations: ${data.ratings.recommendations}/6
 Emotional Intelligence: ${data.ratings.eq}/6
     `.trim();
-    
+
     return `Ты - опытный консультант по поступлению в зарубежные университеты. Проанализируй профиль студента и создай персонализированную диагностику.
 
 СТУДЕНТ:
@@ -131,15 +138,15 @@ ${ratingsText}
  */
 async function callAIAPI(prompt) {
     const cacheKey = prompt.substring(0, 200); // Кэш по началу промпта
-    
+
     if (aiCache.has(cacheKey)) {
         console.log('Using cached AI response');
         return aiCache.get(cacheKey);
     }
-    
+
     try {
         let response;
-        
+
         if (AI_CONFIG.provider === 'openai') {
             response = await fetchOpenAI(prompt);
         } else if (AI_CONFIG.provider === 'anthropic') {
@@ -149,10 +156,10 @@ async function callAIAPI(prompt) {
         } else {
             throw new Error('Неизвестный провайдер ИИ');
         }
-        
+
         aiCache.set(cacheKey, response);
         return response;
-        
+
     } catch (error) {
         console.error('AI API Error:', error);
         throw error;
@@ -166,7 +173,7 @@ async function fetchOpenAI(prompt) {
     if (!AI_CONFIG.apiKey) {
         throw new Error('OpenAI API ключ не установлен. Установите AI_CONFIG.apiKey');
     }
-    
+
     const response = await fetch(`${AI_CONFIG.baseURL}/chat/completions`, {
         method: 'POST',
         headers: {
@@ -189,21 +196,21 @@ async function fetchOpenAI(prompt) {
             max_tokens: 2000
         })
     });
-    
+
     if (!response.ok) {
         const error = await response.json();
         throw new Error(`OpenAI API Error: ${error.error?.message || response.statusText}`);
     }
-    
+
     const data = await response.json();
     const content = data.choices[0].message.content;
-    
+
     // Извлекаем JSON из ответа (на случай если ИИ добавил текст)
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
         return JSON.parse(jsonMatch[0]);
     }
-    
+
     return JSON.parse(content);
 }
 
@@ -214,7 +221,7 @@ async function fetchAnthropic(prompt) {
     if (!AI_CONFIG.apiKey) {
         throw new Error('Anthropic API ключ не установлен');
     }
-    
+
     const response = await fetch(`${AI_CONFIG.baseURL}/messages`, {
         method: 'POST',
         headers: {
@@ -233,20 +240,20 @@ async function fetchAnthropic(prompt) {
             ]
         })
     });
-    
+
     if (!response.ok) {
         const error = await response.json();
         throw new Error(`Anthropic API Error: ${error.error?.message || response.statusText}`);
     }
-    
+
     const data = await response.json();
     const content = data.content[0].text;
-    
+
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
         return JSON.parse(jsonMatch[0]);
     }
-    
+
     return JSON.parse(content);
 }
 
@@ -270,19 +277,19 @@ async function fetchLocal(prompt) {
             stream: false
         })
     });
-    
+
     if (!response.ok) {
         throw new Error(`Local API Error: ${response.statusText}`);
     }
-    
+
     const data = await response.json();
     const content = data.choices[0].message.content;
-    
+
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
         return JSON.parse(jsonMatch[0]);
     }
-    
+
     return JSON.parse(content);
 }
 
@@ -302,7 +309,7 @@ function applyAIGeneratedData(aiData) {
             chartSection.setAttribute('data-ai-generated', 'true');
         }
     }
-    
+
     // 2. Список университетов
     const uniBody = document.getElementById('diagUniBody');
     const uniSection = document.querySelector('.uni-list-section');
@@ -321,7 +328,7 @@ function applyAIGeneratedData(aiData) {
             uniSection.setAttribute('data-ai-generated', 'true');
         }
     }
-    
+
     // 3. Дорожная карта
     const roadmapBody = document.getElementById('diagRoadmapBody');
     const roadmapSection = document.querySelector('.roadmap-section');
@@ -341,7 +348,7 @@ function applyAIGeneratedData(aiData) {
             roadmapSection.setAttribute('data-ai-generated', 'true');
         }
     }
-    
+
     // 4. Рекомендации по инструментам
     const instrumentsSection = document.querySelector('.instruments-section');
     if (aiData.instrument_recommendations && Array.isArray(aiData.instrument_recommendations)) {
@@ -349,11 +356,11 @@ function applyAIGeneratedData(aiData) {
         document.querySelectorAll('.inst-item').forEach(item => {
             item.classList.remove('checked');
         });
-        
+
         // Отмечаем рекомендуемые инструменты
         aiData.instrument_recommendations.forEach(instName => {
             const items = Array.from(document.querySelectorAll('.inst-item'));
-            const found = items.find(item => 
+            const found = items.find(item =>
                 item.textContent.trim().toLowerCase().includes(instName.toLowerCase())
             );
             if (found) {
@@ -365,7 +372,7 @@ function applyAIGeneratedData(aiData) {
             instrumentsSection.setAttribute('data-ai-generated', 'true');
         }
     }
-    
+
     // Обновляем график после изменений
     if (typeof updateDiagChart === 'function') {
         updateDiagChart();
@@ -387,43 +394,52 @@ function escapeHtml(text) {
 async function generateDiagnosticWithAI() {
     const button = document.getElementById('aiGenerateBtn');
     const statusDiv = document.getElementById('aiStatus');
-    
-    // Проверка конфигурации
+
+    // Проверка конфигурации и запрос ключа
     if (!AI_CONFIG.apiKey && AI_CONFIG.provider !== 'local') {
-        showAIError('API ключ не установлен. Пожалуйста, настройте AI_CONFIG.apiKey в файле ai-diagnostic.js');
-        return;
+        // Пробуем запросить у пользователя
+        const userKey = prompt('Для работы ИИ-диагностики требуется OpenAI API Key.\n\nПожалуйста, введите ваш ключ (sk-...):\n(Он будет сохранен только в вашем браузере)');
+
+        if (userKey && userKey.trim().startsWith('sk-')) {
+            AI_CONFIG.apiKey = userKey.trim();
+            localStorage.setItem('openai_api_key', AI_CONFIG.apiKey);
+            alert('Ключ сохранен! Начинаем генерацию...');
+        } else {
+            showAIError('API ключ не установлен. Пожалуйста, введите корректный ключ OpenAI (начинается с sk-).');
+            return;
+        }
     }
-    
+
     // Собираем данные
     const diagnosticData = collectDiagnosticData();
-    
+
     // Валидация минимальных данных
     if (!diagnosticData.name || !diagnosticData.school) {
         showAIError('Пожалуйста, заполните хотя бы имя и школу для генерации диагностики');
         return;
     }
-    
+
     // Показываем индикатор загрузки
     if (button) {
         button.disabled = true;
         button.innerHTML = '<span class="ai-loading-spinner"></span> Генерация...';
     }
-    
+
     if (statusDiv) {
         statusDiv.innerHTML = '<div class="ai-status-info">🤖 ИИ анализирует профиль студента...</div>';
         statusDiv.style.display = 'block';
     }
-    
+
     try {
         // Создаем промпт
         const prompt = createAIPrompt(diagnosticData);
-        
+
         // Вызываем ИИ
         const aiResponse = await callAIAPI(prompt);
-        
+
         // Применяем результаты
         applyAIGeneratedData(aiResponse);
-        
+
         // Показываем успех
         if (statusDiv) {
             statusDiv.innerHTML = '<div class="ai-status-success">✅ Диагностика успешно сгенерирована! Проверьте и отредактируйте при необходимости.</div>';
@@ -431,13 +447,13 @@ async function generateDiagnosticWithAI() {
                 statusDiv.style.display = 'none';
             }, 5000);
         }
-        
+
         // Прокручиваем к первому сгенерированному разделу
         const firstSection = document.querySelector('.chart-section');
         if (firstSection) {
             firstSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-        
+
     } catch (error) {
         console.error('AI Generation Error:', error);
         showAIError(`Ошибка генерации: ${error.message}`);
@@ -458,7 +474,7 @@ function showAIError(message) {
         statusDiv.innerHTML = `<div class="ai-status-error">❌ ${message}</div>`;
         statusDiv.style.display = 'block';
     }
-    
+
     // Также показываем alert для критических ошибок
     alert(`Ошибка ИИ: ${message}`);
 }
@@ -468,36 +484,36 @@ function showAIError(message) {
  */
 function initAIDiagnostic() {
     console.log('🔍 Инициализация ИИ диагностики...');
-    
+
     // Проверяем наличие кнопки (она должна быть добавлена в HTML)
     const button = document.getElementById('aiGenerateBtn');
     if (button) {
         console.log('✅ Кнопка ИИ найдена');
-        
+
         // Удаляем все старые обработчики
         const newButton = button.cloneNode(true);
         button.parentNode.replaceChild(newButton, button);
-        
+
         // Добавляем новый обработчик
-        newButton.addEventListener('click', function(e) {
+        newButton.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
             console.log('🚀 Запуск генерации ИИ...');
             generateDiagnosticWithAI();
         });
-        
+
         console.log('✅ Обработчик события добавлен');
     } else {
         console.error('❌ Кнопка ИИ не найдена! Проверьте HTML.');
         return false;
     }
-    
+
     // Проверяем наличие статус-бара
     const statusBar = document.getElementById('aiStatus');
     if (!statusBar) {
         console.warn('⚠️ Статус-бар ИИ не найден');
     }
-    
+
     return true;
 }
 
@@ -532,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initAIDiagnostic();
     }
     loadDiagnosticDraft();
-    
+
     // Добавляем обработчик для автосохранения при редактировании (один раз)
     if (!document.hasAttribute('data-ai-save-listener')) {
         document.addEventListener('input', (e) => {
@@ -546,12 +562,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Также инициализируем при открытии модального окна
 // Используем более надежный способ - перехватываем открытие модального окна
-(function() {
+(function () {
     const originalOpenModal = window.openModal;
     if (originalOpenModal) {
-        window.openModal = function(modalId) {
+        window.openModal = function (modalId) {
             originalOpenModal.apply(this, arguments);
-            
+
             // Если открывается диагностика, инициализируем ИИ
             if (modalId === 'diagnosticModal') {
                 // Даем время DOM обновиться
@@ -573,7 +589,7 @@ window.initAIDiagnostic = initAIDiagnostic;
 window.AI_CONFIG = AI_CONFIG; // Для настройки из консоли
 
 // Глобальная функция для ручной инициализации (можно вызвать из консоли для отладки)
-window.initAI = function() {
+window.initAI = function () {
     console.log('🔧 Ручная инициализация ИИ...');
     return initAIDiagnostic();
 };
