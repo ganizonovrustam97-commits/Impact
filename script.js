@@ -960,6 +960,7 @@ function exportDiag(e) {
         image: { type: 'jpeg', quality: 0.95 },
         html2canvas: {
             scale: 2,
+            windowWidth: 794,
             useCORS: true,
             logging: false,
             onclone: (clonedDoc) => {
