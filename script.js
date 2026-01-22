@@ -692,39 +692,7 @@ function initEnrollmentTable() {
     tableBody.innerHTML = '';
     let rowIndex = 1;
 
-    // 1. Add 2 Free Slots (Fully Editable)
-    for (let i = 0; i < 2; i++) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td style="text-align: center; color: #94a3b8;">${rowIndex++}</td>
-            <td contenteditable="true" class="editable-cell name-input" data-placeholder="Введите ФИО...">
-                <div class="slot-free">Свободное место</div>
-            </td>
-            <td>
-                <select class="excel-select status-select">
-                    <option value="status-slot" selected>ДОСТУПНО</option>
-                    <option value="status-prepaid">ПРЕДОПЛАТА</option>
-                    <option value="status-active">АКТИВНЫЙ</option>
-                </select>
-            </td>
-            <td>
-                <input type="date" class="excel-date-input" value="${todayFormatted}">
-            </td>
-            <td contenteditable="true" class="editable-cell" style="color: #64748b; font-size: 0.75rem;">Bachelor's Admission</td>
-        `;
-
-        // Clear placeholder text on first edit
-        const nameCell = row.querySelector('.name-input');
-        nameCell.addEventListener('focus', function () {
-            if (this.innerText.includes('Свободное место')) {
-                this.innerHTML = '';
-            }
-        });
-
-        tableBody.appendChild(row);
-    }
-
-    // 2. Add existing students
+    // 1. Add existing students (First)
     for (let i = 0; i < studentNames.length; i++) {
         const date = new Date();
         date.setDate(today.getDate() - (i + 1));
@@ -753,6 +721,39 @@ function initEnrollmentTable() {
             <td>${formattedDate}</td>
             <td style="color: #64748b; font-size: 0.75rem;">Bachelor's Admission</td>
         `;
+
+        tableBody.appendChild(row);
+    }
+
+    // 2. Add 2 Free Slots (Last)
+    for (let i = 0; i < 2; i++) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td style="text-align: center; color: #94a3b8;">${rowIndex++}</td>
+            <td contenteditable="true" class="editable-cell name-input" data-placeholder="Введите ФИО...">
+                <div class="slot-free">Свободное место</div>
+            </td>
+            <td>
+                <select class="excel-select status-select">
+                    <option value="status-slot" selected>ДОСТУПНО</option>
+                    <option value="status-prepaid">ПРЕДОПЛАТА</option>
+                    <option value="status-active">АКТИВНЫЙ</option>
+                </select>
+            </td>
+            <td>
+                <input type="date" class="excel-date-input" value="${todayFormatted}">
+            </td>
+            <td contenteditable="true" class="editable-cell" style="color: #64748b; font-size: 0.75rem;">Bachelor's Admission</td>
+        `;
+
+        // Clear placeholder text on first edit
+        const nameCell = row.querySelector('.name-input');
+        nameCell.addEventListener('focus', function () {
+            if (this.innerText.includes('Свободное место')) {
+                this.innerHTML = '';
+            }
+        });
+
         tableBody.appendChild(row);
     }
 }
