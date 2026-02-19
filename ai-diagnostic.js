@@ -514,6 +514,22 @@ function initAIDiagnostic() {
         console.warn('⚠️ Статус-бар ИИ не найден');
     }
 
+    // Добавляем обработчик для настроек
+    const settingsBtn = document.getElementById('aiSettingsBtn');
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const currentKey = localStorage.getItem('openai_api_key') || '';
+            const newKey = prompt('Введите ваш OpenAI API Key:', currentKey);
+
+            if (newKey !== null) {
+                localStorage.setItem('openai_api_key', newKey.trim());
+                AI_CONFIG.apiKey = newKey.trim();
+                alert('API ключ сохранен! Теперь вы можете использовать ИИ генерацию.');
+            }
+        });
+    }
+
     return true;
 }
 
